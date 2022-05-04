@@ -1,0 +1,108 @@
+<section id="login" *ngIf="displayLogin == true">
+    <app-login></app-login>
+</section>
+<div id="global-container">
+    <!-- #servers-sidebar does not size properly in Chrome 97 due to "overflow-y: auto", is this a known bug? -->
+    <!-- Happens whether it's a div or nav and is isolated to the "overflow" property. -->
+    <!-- Wrapping our nav in another nav or div resolves the issue. -->
+    <div id="servers-sidebar-sizing-fix">
+        <nav id="servers-sidebar">
+            <!-- TODO: Loop through available dealerships and add their icons / names here? -->
+            <server-icon
+                [icon]="'directions_car'"
+                [name]="serverName"
+                [active]="true"
+            ></server-icon>
+        </nav>
+    </div>
+
+    <div>
+        <nav id="chats-sidebar">
+            <section id="server-info">
+                <div class="header center overflow-ellipsis">
+                    {{ serverName }}
+                </div>
+                <span>
+                    <ion-badge
+                        class="center"
+                        [color]="'danger'"
+                        [mode]="'ios'"
+                        *ngIf="unreadCount > 0"
+                        >{{ unreadCount }}</ion-badge
+                    >
+                </span>
+                <span>
+                    <ion-icon
+                        class="center dropdown"
+                        name="chevron-down-outline"
+                    ></ion-icon>
+                </span>
+            </section>
+
+            <section id="chat-info">
+                <section id="chat-presets">
+                    <div>
+                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                        <span>Threads</span>
+                    </div>
+                    <div>
+                        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+                        <span>All DMs</span>
+                    </div>
+                    <div>
+                        <ion-icon name="at-outline"></ion-icon>
+                        <span>Mentions & Tags</span>
+                    </div>
+                    <div>
+                        <ion-icon name="bookmark-outline"></ion-icon>
+                        <span>Saved Items</span>
+                    </div>
+                </section>
+
+                <header class="header-section">
+                    <ion-icon
+                        class="center dropdown"
+                        name="chevron-down-outline"
+                    ></ion-icon>
+                    <span class="header">Channels</span>
+                </header>
+                <section id="chat-channels">
+                    <channel
+                        *ngFor="
+                            let channel of groupMessages;
+                            trackBy: trackChannel
+                        "
+                        [channel]="channel"
+                    ></channel>
+
+                    <app-add-channel>
+
+                    </app-add-channel>
+                </section>
+
+                <header class="header-section">
+                    <ion-icon
+                        class="center dropdown"
+                        name="chevron-down-outline"
+                    ></ion-icon>
+                    <span class="header">Direct Messages</span>
+                </header>
+                <section id="chat-direct-messages">
+                    <conversation
+                        *ngFor="
+                            let channel of directMessages;
+                            trackBy: trackChannel
+                        "
+                        [channel]="channel"
+                    ></conversation>
+                    <app-add-message>
+
+                    </app-add-message>
+                </section>
+            </section>
+        </nav>
+    </div>
+    <main id="chat-container">
+        <chatbox></chatbox>
+    </main>
+</div>

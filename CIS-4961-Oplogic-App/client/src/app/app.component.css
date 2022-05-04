@@ -1,0 +1,239 @@
+.defaultbutton {
+    display: inline-flex;
+    margin-top: 10px;
+    vertical-align: middle;
+}
+
+.temporarywidth {
+    width: 190px;
+}
+
+#global-container {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    z-index: 0;
+}
+
+.center {
+    vertical-align: middle;
+    text-align: center;
+}
+
+ion-icon.dropdown {
+    font-size: 0.75rem;
+    color: #007bff;
+}
+
+/* --------------------- Servers Sidebar ---------------------*/
+#servers-sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0.5rem 1rem;
+    margin-right: 0.2rem;
+    background-color: #e9e9ea;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#servers-sidebar > server-icon {
+    padding-top: 1rem;
+}
+
+/* ---------------------- Chats Sidebar ----------------------*/
+#chats-sidebar {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: left;
+    height: 100%;
+    width: 15rem;
+    background-color: #e9e9ea;
+}
+
+/* ---------------- Chat Server Info Header ------------------*/
+/* #server-info's line-height is tied to it's header's font-size. */
+#server-info {
+    display: inline-flex;
+    width: 100%;
+    line-height: 2rem;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 0.2em solid white;
+    background-color: #e9e9ea;
+    vertical-align: middle;
+}
+
+#server-info .overflow-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#server-info .header {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+#server-info ion-badge {
+    margin-left: 0.5rem;
+}
+
+/* ----------------- Available Chat Sections -----------------*/
+#chat-info {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#chat-info .header-section {
+    padding-top: 1rem;
+    padding-left: 1rem;
+}
+
+#chat-info .header {
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding-left: 0.5rem;
+}
+
+/* ----------------------- Chat Presets --------------------- */
+#chat-presets {
+    padding-top: 1rem;
+}
+
+#chat-presets ion-icon,
+#chat-presets span {
+    vertical-align: middle;
+}
+
+#chat-presets ion-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+#chat-presets > * {
+    padding: 0.25rem 0 0.25rem 1rem;
+
+    cursor: pointer;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#chat-presets > *:hover {
+    background: white;
+}
+
+/* ----------------------- Chat DMs ------------------------- */
+#chat-direct-messages:last-child {
+    margin-bottom: 1rem;
+}
+
+
+
+
+/* ------------------ Add Channel --------------------------- */
+#add-channel {
+    width: 50%;
+    height: 50%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 9;
+    background: white;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ------------------ Login --------------------------- */
+#login {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 9;
+    background: white;
+}
+
+/* ------------------ Add Message --------------------------- */
+#add-message {
+    width: 50%;
+    height: 50%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 9;
+    background: white;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ------------------ Customer Profiles --------------------------- */
+#customer-profiles {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+}
+
+/* ----------------- Actual Chat Content -------------------- */
+#chat-container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #f2f2f2;
+}
+
+/* -------------------- Pop Up Content  --------------------- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* -------------------------END------------------------------ */

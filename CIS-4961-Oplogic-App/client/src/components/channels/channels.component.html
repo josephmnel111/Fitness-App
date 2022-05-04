@@ -1,0 +1,24 @@
+<div
+    class="channel-container"
+    (click)="updateCurrentChannel()"
+    [ngClass]="{
+        selected: this.socket?.currentChannel?.id === channel.id
+    }"
+>
+    <ion-icon
+        [name]="channel.isPrivate ? 'lock-closed-outline' : 'lock-open-outline'"
+    ></ion-icon>
+
+    <span [ngClass]="{ 'unread-bold': unreadMessages && showDM }">{{
+        channel.name
+    }}</span>
+
+    <ion-badge
+        class="centered unread-badge"
+        [color]="'success'"
+        [mode]="'ios'"
+        *ngIf="notifications > 0 && showBadge"
+    >
+        {{ notifications }}
+    </ion-badge>
+</div>

@@ -1,0 +1,10 @@
+#container {
+    background-color: white;
+    border-radius: 25px;
+    border: 2px solid black;
+    padding: 20px;
+    margin: 0.5rem auto;
+}
+.name {
+    font-weight: bold;
+}

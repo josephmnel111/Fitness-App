@@ -1,0 +1,64 @@
+.msg-wrapper {
+  position: relative;
+  padding: 1rem 1rem;
+}
+
+.msg-wrapper:hover {
+  background-color: #e9e9ea;
+}
+
+/* Show toolbar on hover message component */
+.msg-wrapper:hover .toolbar{
+  visibility: visible;
+}
+
+.timestamp {
+  color: grey;
+  margin-left: .5rem;
+  font-size: 0.75rem;
+}
+
+.message-content {
+    font-size: 0.9rem;
+    margin-left: 2.8rem;        /*Is there a way to make calculate the same margin as the name?*/
+}
+
+.name {
+    font-weight: 500;
+}
+
+.toolbar {
+  float: right;
+  visibility: hidden;
+}
+
+.toolbar button {
+  background : none;
+  font-size: 1.2rem;
+  color: grey;
+}
+
+/* Textarea for editing message */
+.edit-textbox {
+  width: 100%;
+  background-color: #f2f2f2;
+}
+
+.edit-textbox:focus {
+  outline: none;
+}
+
+/* Button group displayed when editing a message */
+.actions{
+  display: flex;
+  width: 100%;
+  background: none;
+  justify-content: right;
+}
+
+.edited-flag {
+  margin-left: 1rem;
+  color: grey;
+  margin-left: .5rem;
+  font-size: 0.75rem;
+}

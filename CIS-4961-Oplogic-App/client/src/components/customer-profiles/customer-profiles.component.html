@@ -1,0 +1,36 @@
+<div id="profile_container">
+    <h4>Share Customer Profile</h4>
+    <form autocomplete="off">
+        <input type="text" id="search" placeholder="Search by name..." />
+    </form>
+    <br />
+    <div id="scroll">
+        <table id="customer_info">
+            <tr>
+                <th></th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Make</th>
+                <th>Mode</th>
+            </tr>
+            <tr *ngFor="let customer of customers">
+                <td><input type="checkbox" [id]="customer.pkindex" /></td>
+                <td>{{ customer.firstName }}</td>
+                <td>{{ customer.lastName }}</td>
+                <td>{{ customer.address }}</td>
+                <td>{{ customer.phoneNumber }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.make }}</td>
+                <td>{{ customer.model }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<ion-row>
+    <button type="button" class="button submit" (click)="onSubmit()">Submit</button>
+    <button type="button" class="button cancel" (click)="onCancel()">Cancel</button>
+</ion-row>

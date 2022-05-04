@@ -1,0 +1,15 @@
+<div class="centered">
+    <form [formGroup]="loginForm">
+        <div>
+            <ion-label>Username</ion-label>
+            <ion-select placeholder="Select a user..." (ionChange)="onChange($event)">
+                <ion-select-option
+                    *ngFor="let user of users"
+                    [value]="user.id"
+                    >{{ user.fullName }}</ion-select-option
+                >
+            </ion-select>
+        </div>
+        <button type="button" (click)="onSubmit()">Submit</button>
+    </form>
+</div>

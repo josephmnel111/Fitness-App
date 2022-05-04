@@ -1,0 +1,74 @@
+/* Wrapper for entire component */
+.component-wrapper {
+    height: 5rem;
+    margin: .5rem;
+    position: relative;
+}
+
+/* Wrapper for content of component */
+/* Needed because close button can overflow */
+.content-wrapper {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+    height: inherit;
+
+    border-radius: 10%;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: lightslategrey;
+
+}
+
+span .textBlock {
+    width: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.closeBtn {
+    visibility: hidden;
+    position: absolute;
+    top: -.4rem;
+    right: -.4rem;
+    color: white;
+    background-color: red;
+    font-size: .85rem;
+    cursor: pointer;
+    
+    /* Use border to extent red circle */
+    border-radius: 50%;
+    border-width: .1rem;
+    border-style: solid;
+    border-width: .2rem;
+    border-color: red;
+    
+    /* Animation starts with invisible circle */
+    transform: scale(0);
+    transition: all .08s ease-in-out; 
+}
+
+.component-wrapper:hover .closeBtn {
+    visibility: visible;
+
+    /* Animation grows until full size */
+    transform: scale(1.0);
+}
+
+.closeBtn:hover {
+    filter: grayscale(20%);
+}
+
+img {
+    align-self: center;
+
+    /* Inherit width and height of parent and fit image to it */
+    /* Object-fit: cover allows to keep dimensions and fit over wrapper similiar to slack */
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+}

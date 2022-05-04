@@ -1,0 +1,13 @@
+ion-row {
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+ion-row:last-child{
+    margin-bottom: 0;
+}
+
+ion-icon:hover {
+    color: #007bff;
+    cursor: pointer;
+}

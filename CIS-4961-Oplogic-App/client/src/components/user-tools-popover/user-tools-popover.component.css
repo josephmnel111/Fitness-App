@@ -1,0 +1,15 @@
+ion-item:last-child {
+    --inner-border-width: 0;
+}
+
+ion-item {
+    vertical-align: middle;
+}
+
+.right-align {
+    margin-left: auto;
+}
+
+.blue {
+    color: #2196F3;
+}

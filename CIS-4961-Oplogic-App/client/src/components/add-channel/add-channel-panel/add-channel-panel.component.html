@@ -1,0 +1,30 @@
+<div class="channel">
+    <h4>Create a Channel</h4>
+    <p>Name</p>
+    <input type="text" #channelName class="name_field field" placeholder = "e.g. Development Team"/>
+    <br />
+    <br />
+    <p>Description</p>
+    <input type="text" #channelDescription class="description_field field" placeholder = "What is this channel about?" />
+    <br />
+    <br />
+        <!-- Rounded switch -->
+    <p>Make Private</p>
+    <label for="private_channel_field">When a channel is set to private, it can only be viewed</label>
+    <br>
+    <label> or joined by an invitation.</label> 
+    <label class="switch">
+        <input type="checkbox" #channelIsPrivate id = "private_channel_field">
+        <span class="slider round"></span>
+    </label>
+    <br />
+    <br />
+    <button
+        type="button"
+        class="button save"
+        (click)="onSave(channelName, channelDescription, channelIsPrivate)"
+    >
+        Save
+    </button>
+    <button type="button" class="button cancel" (click)="onCancel()">Cancel</button>
+</div>

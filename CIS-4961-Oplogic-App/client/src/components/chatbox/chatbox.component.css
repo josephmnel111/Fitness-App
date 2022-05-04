@@ -1,0 +1,122 @@
+.chatbox-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.topbar-container {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+}
+
+.topbar-container .header {
+    padding-right: 0.5rem;
+
+    font-weight: bold;
+    line-height: 2rem;
+    vertical-align: middle;
+}
+
+.channel-options > * {
+    vertical-align: middle;
+}
+
+.channel-options {
+    display: inline-block;
+    padding: 0 0.5rem;
+    
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+.channel-options + ion-icon {
+    padding-left: 0.5rem;
+    vertical-align: middle;
+}
+
+
+/* The parent element is 'position: relative' to allow its child element to anchor to the bottom edge */
+/* Child element is in the 'msgContainer' component template */
+.conversation {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.conversation-input {
+    height: 6rem;
+    background: white;
+}
+
+.conversation-input > textarea {
+    height: 100%;
+    width: 100%;
+
+    padding: 1rem;
+
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+.conversation-input-tools {
+    display:flex;
+    flex-direction: row-reverse;
+
+    width: 100%;
+    background: white;
+}
+
+.conversation-input-tools > * {
+    padding: 1rem 0.5rem;
+    font-size: 1.5rem;
+
+    cursor: pointer;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    transition: all 0.2s;
+}
+
+.conversation-input-tools > *:active,
+.conversation-input-tools > *:focus,
+.conversation-input-tools > *:hover,
+.conversation-input-tools .open {
+    color: #007bff
+}
+
+.conversation-input-tools #sendButton {
+    padding: 1rem;
+    margin-left: 1rem;
+    color: #007bff;
+    background-color: rgb(242, 248, 255);
+
+    cursor: pointer;
+
+    transition: all 0.25s;
+}
+
+.conversation-input-tools #sendButton:active,
+.conversation-input-tools #sendButton:hover,
+.conversation-input-tools #sendButton:focus {
+    background-color: hsl(212, 100%, 92%);
+    color: hsl(211, 100%, 45%);
+}
+
+.file-preview {
+    background-color: white;
+
+    /* Files inside will be flex items */
+    display: flex;
+    
+    min-height: 6rem;
+    max-height: 10rem;
+    overflow-y: auto;
+}

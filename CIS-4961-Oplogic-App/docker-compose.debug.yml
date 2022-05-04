@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql-db
+    ports:
+      - 3306:3306
+    volumes:
+      - oplogic-data:/var/lib/mysql/
+      - ./server/mysql/initialization:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_ROOT_PASSWORD: Password
+      MYSQL_DATABASE: oplogicdb
+  server:
+    image: nodesocketserver
+    container_name: node-server
+    build:
+      context: .
+      dockerfile: ./server/nodejs/Dockerfile
+    environment:
+      SERVER_NAME: Hello World!
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+      - 9229:9229
+    depends_on:
+      - db
+  client:
+    image: angularclient
+    container_name: angular-client
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    ports:
+      - 4200:4200
+    depends_on:
+      - server
+
+volumes:
+  oplogic-data:
+    name: 'oplogic-db-data'

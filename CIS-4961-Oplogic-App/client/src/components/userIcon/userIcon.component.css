@@ -1,0 +1,19 @@
+/* Width, height, line-height, and font-size are defined by the component to
+allow for easy scaling of the icon */
+.initials {
+    margin-right: 0.5rem;
+
+    display: inline-block;
+    border-radius: 50%;
+
+    font-weight: 500;
+    text-align: center;
+
+    color: white;
+    background-color: blue;
+
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}

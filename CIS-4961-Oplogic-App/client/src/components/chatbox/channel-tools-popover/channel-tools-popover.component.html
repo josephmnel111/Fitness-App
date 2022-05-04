@@ -1,0 +1,105 @@
+<!-- Content of the popover to be displayed when popover is shown -->
+<ion-list>
+    <ion-item id="add-participant" button> Participants </ion-item>
+    <ion-item
+        id="add-moderators"
+        button
+        *ngIf="currentUserIsChannelModerator()"
+    >
+        Moderators
+    </ion-item>
+    <ion-item button> Mute notifications (WIP) </ion-item>
+    <ion-item button> Clear messages (WIP) </ion-item>
+    <ion-item style="color: red" button (click)="leaveChannel()">
+        Exit group
+    </ion-item>
+    <ion-item style="color: red" button *ngIf="currentUserIsChannelModerator()">
+        Delete Channel (WIP)
+    </ion-item>
+</ion-list>
+
+<ion-popover
+    trigger="add-participant"
+    [dismissOnSelect]="false"
+    alignment="start"
+    side="end"
+>
+    <ng-template>
+        <ion-content>
+            <ion-list>
+                <ion-input
+                    (ionChange)="search($event)"
+                    placeholder="Search..."
+                ></ion-input>
+
+                <cdk-virtual-scroll-viewport itemSize="56" maxBufferPx="900">
+                    <ion-item *cdkVirtualFor="let user of filteredUsers">
+                        <ion-checkbox
+                            mode="ios"
+                            (click)="setUserInteraction()"
+                            (ionChange)="memberSelectionChanged($event)"
+                            [value]="user"
+                            [checked]="userIsInChannel(user)"
+                            [disabled]="!currentUserIsChannelModerator() || isCurrentUser(user)"
+                        ></ion-checkbox>
+                        <userIcon
+                            [name]="user.fullName?.toString()"
+                            [scale]="1.5"
+                        >
+                        </userIcon>
+
+                        <span>{{ user.fullName }}</span>
+
+                        <ion-icon
+                            name="star"
+                            *ngIf="isUserModerator(user)"
+                        ></ion-icon>
+                    </ion-item>
+                </cdk-virtual-scroll-viewport>
+            </ion-list>
+        </ion-content>
+    </ng-template>
+</ion-popover>
+
+<ion-popover
+    trigger="add-moderators"
+    [dismissOnSelect]="false"
+    alignment="start"
+    side="end"
+>
+    <ng-template>
+        <ion-content>
+            <ion-list>
+                <ion-input
+                    (ionChange)="search($event)"
+                    placeholder="Search..."
+                ></ion-input>
+
+                <cdk-virtual-scroll-viewport itemSize="56" maxBufferPx="900">
+                    <ion-item *cdkVirtualFor="let user of filteredUsers">
+                        <ion-checkbox
+                            mode="ios"
+                            (click)="setUserInteraction()"
+                            (ionChange)="moderatorSelectionChanged($event)"
+                            [value]="user"
+                            [checked]="isUserModerator(user)"
+                            [disabled]="!currentUserIsChannelModerator() || isCurrentUser(user)"
+                        ></ion-checkbox>
+                        <userIcon
+                            [name]="user.fullName?.toString()"
+                            [scale]="1.5"
+                        >
+                        </userIcon>
+
+                        <span>{{ user.fullName }}</span>
+
+                        <ion-icon
+                            name="star"
+                            *ngIf="isUserModerator(user)"
+                        ></ion-icon>
+                    </ion-item>
+                </cdk-virtual-scroll-viewport>
+            </ion-list>
+        </ion-content>
+    </ng-template>
+</ion-popover>

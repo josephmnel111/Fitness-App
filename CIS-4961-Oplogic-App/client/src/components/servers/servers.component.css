@@ -1,0 +1,50 @@
+.rounded {
+  border-radius: 1em;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+
+  margin: 0;
+  padding: 0;
+
+  line-height: 2rem;
+  text-align: center;
+
+  outline: 0 solid transparent;
+  background-color: blueviolet;
+  color: white;
+
+  cursor: pointer;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+
+  transition: all 0.15s;
+}
+
+.icon:hover,
+.icon.active {
+  outline: 4px solid #0278f6;
+}
+
+ion-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.5rem;
+  vertical-align: middle;
+  padding: 0;
+  margin: 0;
+
+  pointer-events: none;
+}
+
+.centered {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
+}

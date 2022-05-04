@@ -1,0 +1,42 @@
+.content-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.right-align {
+    margin-left: auto;
+}
+
+.show-all-group {
+    text-align: right;
+}
+
+.no-border {
+    --inner-border-width: 0;
+}
+
+.btn-segment {
+    justify-content: flex-start;
+}
+
+.notif-container {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+hr {
+    margin: 0;
+    border-top: .4rem solid #cfcfcf;
+    color: #cfcfcf;
+}

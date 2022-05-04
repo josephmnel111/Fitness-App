@@ -1,0 +1,14 @@
+/*--------------------------Auto Search-----------------------*/
+   
+.user-tag-container {
+    max-height: 100%;
+    position: relative;
+    width: 100%;
+    background: white;
+    font-size: 18px;
+    border: #d4d4d4 1px solid
+}
+
+.user-tag-container:hover {
+  background-color: #e9e9e9; 
+}

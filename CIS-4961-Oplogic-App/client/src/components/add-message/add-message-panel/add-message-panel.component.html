@@ -1,0 +1,26 @@
+<div class="message">
+    <h4>Create A New Message</h4>
+    <ion-list>
+        <ion-input
+            (ionChange)="search($event)"
+            placeholder="Search..."
+        ></ion-input>
+
+        <ion-item *ngFor="let user of filteredUsers">
+            <ion-checkbox
+                mode="ios"
+                (ionChange)="selectionChanged($event)"
+                [value]="user"
+            ></ion-checkbox>
+            <userIcon [name]="user.fullName?.toString()" [scale]="1.5">
+            </userIcon>
+
+            <span>{{ user.fullName }}</span>
+        </ion-item>
+    </ion-list>
+
+    <br />
+    <br />
+    <button type="button" class="button save" (click)="onSave()">Save</button>
+    <button type="button" class="button cancel" (click)="onCancel()">Cancel</button>
+</div>

@@ -1,0 +1,26 @@
+.content-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.content-container ion-col {
+    display: flex;
+    align-items: center;
+}
+
+.content-container h2 {
+    margin: 0;
+}
+
+.list-container {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.flex-justify-end {justify-content: flex-end;}
+
+ion-item {
+    --inner-border-width: 0;
+}
