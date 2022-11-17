@@ -20,6 +20,7 @@ app.get("/", function(req, resp) {
     console.log("Get Sent!")
 })
 
+//Inserts values in user workout inputs to workout table.
 app.post("/input", function(req, resp) {
     console.log("Post Sent!")
     connection.query('INSERT INTO workout(Name, Reps, Sets, Weight) VALUES("'+req.body.name+'", '+req.body.reps+', '+req.body.sets+', '+req.body.weight+')')
