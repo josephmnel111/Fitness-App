@@ -1,4 +1,0 @@
-/* Remove border of last ionic item */
-ion-item:last-child {
-  --inner-border-width: 0;
-}
