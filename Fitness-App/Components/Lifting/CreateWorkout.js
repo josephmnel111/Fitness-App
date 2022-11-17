@@ -16,6 +16,7 @@ const CreateWorkout = ({navigation}) => {
       </TouchableOpacity>
       <TouchableOpacity
         style = {styles.touchable} 
+        onPress = {() => navigation.navigate("Schedule Workout")}
       >
         <Text style = {styles.touchableText}>Schedule Workout</Text>
       </TouchableOpacity>

@@ -5,6 +5,7 @@ import StackNavigator from '../../Navigation/StackNavigator'
 import { createStackNavigator } from "@react-navigation/stack";
 import CreateWorkout from "./CreateWorkout";
 import WorkoutInput from "./WorkoutInput"
+import ScheduleWorkout from "./ScheduleWorkout"
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ const LiftingScreen = () =>{
         >
             <Stack.Screen name = "Create Workout" component = {CreateWorkout}/>
             <Stack.Screen name = "Workout Input" component = {WorkoutInput}/>
+            <Stack.Screen name = "Schedule Workout" component = {ScheduleWorkout}/>
         </Stack.Navigator>
         
       /*<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: "black"}}>
