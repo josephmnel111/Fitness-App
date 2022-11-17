@@ -2,6 +2,8 @@ import React from "react";
 import { View, Button, Text, TouchableOpacity,  StyleSheet } from "react-native";
 import Week from "./Calendar/Week"
 import Month from "./Calendar/Month"
+
+
 const CreateWorkout = ({navigation}) => {
   return (
     <View>
@@ -18,8 +20,6 @@ const CreateWorkout = ({navigation}) => {
         <Text style = {styles.touchableText}>Schedule Workout</Text>
       </TouchableOpacity>
       <Text style = {styles.textInput}>Workout Schedule</Text>
-      <Week/>
-      <Month/>
     </View>
   );
 }

@@ -1,7 +1,38 @@
-import React from "react";
-import { View, TouchableOpacity, Text, TextInput,  StyleSheet } from "react-native";
+import React, {useState, useEffect} from "react";
+import { View, TouchableOpacity, Text, TextInput,  StyleSheet, Alert} from "react-native";
+
+
 
 const WorkoutInput = ({navigation}) => {
+  
+  
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      
+    })
+  }
+
+
+  const postWorkout = async () => {
+    console.log("HI");
+    try {
+      await fetch("http://192.168.0.10:3000/input", requestOptions)
+      .then(response => {
+        response.json()
+        .then(data => {
+          Alert.alert("Post Created")
+        })
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   return (
       <View style = {styles.container}>
         <Text style = {styles.textInput}>
@@ -26,7 +57,7 @@ const WorkoutInput = ({navigation}) => {
           </View> 
           <TouchableOpacity
             style = {styles.touchable} 
-            onPress = {() => navigation.navigate('Create Workout')}
+            onPress = {postWorkout}
           > 
             <Text style = {styles.touchableText}>Create Workout</Text>
           </TouchableOpacity>
