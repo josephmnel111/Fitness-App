@@ -1,25 +1,25 @@
 import React, {useState, useEffect} from "react";
 import { View, TouchableOpacity, Text, TextInput,  StyleSheet, Alert} from "react-native";
 
-
-
 const WorkoutInput = ({navigation}) => {
   
-  
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      
-    })
-  }
+  const [name, setName] = useState('');
+  const [reps, setReps] = useState('');
+  const [sets, setSets] = useState('');
+  const [weight, setWeight] = useState('');
 
 
   const postWorkout = async () => {
-    console.log("HI");
+
     try {
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name: name, reps: reps, sets: sets, weight: weight})
+      }
+      console.log(requestOptions.body)
       await fetch("http://192.168.0.10:3000/input", requestOptions)
       .then(response => {
         response.json()
@@ -40,20 +40,35 @@ const WorkoutInput = ({navigation}) => {
         </Text>
 
           <View style = {styles.inputContainer}>
-              <Text style = {styles.inputValues}>Type:</Text>
-              <TextInput style = {styles.input}/>
+              <Text style = {styles.inputValues}>Name:</Text>
+              <TextInput 
+                style = {styles.input}
+                onChangeText={(val) => setName(val)}
+              />
           </View>
           <View style = {styles.inputContainer}>
               <Text style = {styles.inputValues}>Reps:</Text>
-              <TextInput style = {styles.input} keyboardType = "numeric"/>
+              <TextInput 
+                style = {styles.input} 
+                keyboardType = "numeric"
+                onChangeText={(val) => setReps(val)}
+              />
           </View>
           <View style = {styles.inputContainer}>
               <Text style = {styles.inputValues}>Sets:</Text>
-              <TextInput style = {styles.input} keyboardType = "numeric"/>
+              <TextInput 
+                style = {styles.input} 
+                keyboardType = "numeric"
+                onChangeText={(val) => setSets(val)}
+              />
           </View>
           <View style = {styles.inputContainer}>
               <Text style = {styles.inputValues}>Weight:</Text>
-              <TextInput style = {styles.input} keyboardType = "numeric"/>
+              <TextInput 
+                style = {styles.input} 
+                keyboardType = "numeric"
+                onChangeText={(val) => setWeight(val)}
+              />
           </View> 
           <TouchableOpacity
             style = {styles.touchable} 
