@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Button, Text, TouchableOpacity,  StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity,  StyleSheet } from "react-native";
 import Week from "./Calendar/Week"
 import Month from "./Calendar/Month"
 
@@ -16,7 +16,7 @@ const CreateWorkout = ({navigation}) => {
       </TouchableOpacity>
       <TouchableOpacity
         style = {styles.touchable} 
-        onPress = {() => navigation.navigate("Schedule Workout")}
+        onPress = {() => navigation.navigate('Schedule Workout')}
       >
         <Text style = {styles.touchableText}>Schedule Workout</Text>
       </TouchableOpacity>

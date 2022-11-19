@@ -16,8 +16,12 @@ const app = express()
 app.use(bp.json())
 app.use(bp.urlencoded({extended: true}))
 
-app.get("/", function(req, resp) {
+app.get("/input", function(req, resp) {
     console.log("Get Sent!")
+    connection.query("SELECT * FROM workout", function (err, data, fields) {
+        if (err) throw err;
+        resp.send(data).status(200)
+      });
 })
 
 //Inserts values in user workout inputs to workout table.

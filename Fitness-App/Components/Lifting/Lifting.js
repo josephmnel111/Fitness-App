@@ -10,7 +10,7 @@ import ScheduleWorkout from "./ScheduleWorkout"
 const Stack = createStackNavigator();
 
 
-const LiftingScreen = () =>{
+const LiftingScreen = () => {
   
     return (
        //#4169E1
