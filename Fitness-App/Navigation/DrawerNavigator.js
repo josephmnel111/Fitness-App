@@ -20,10 +20,10 @@ const DrawerNavigator = () => {
             headerShown: true,
             headerTintColor: "white",
             headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: "#2D3856",
             },
             drawerStyle: {
-            backgroundColor: "black"
+            backgroundColor: "#2D3856"
             }
             }}
             >
@@ -36,7 +36,7 @@ const DrawerNavigator = () => {
                         <FontAwesome5
                             name = "user-circle"
                             size = {24}
-                            color={focused ? "#4169E1" : "white"}
+                            color={focused ? "#FFB800" : "white"}
                         />
                     ),
                 }}
@@ -50,7 +50,7 @@ const DrawerNavigator = () => {
                         <FontAwesome5
                             name = "dumbbell"
                             size = {24}
-                            color={focused ? "#4169E1" : "white"}
+                            color={focused ? "#FFB800" : "white"}
                         />
                     ),
                 }}
@@ -64,7 +64,7 @@ const DrawerNavigator = () => {
                         <FontAwesome5
                             name = "running"
                             size = {24}
-                            color={focused ? "#4169E1" : "white"}
+                            color={focused ? "#FFB800" : "white"}
                         />
                     ),
                 }}
@@ -78,7 +78,7 @@ const DrawerNavigator = () => {
                         <FontAwesome5
                             name = "cog"
                             size = {24}
-                            color={focused ? "#4169E1" : "white"}
+                            color={focused ? "#FFB800" : "white"}
                         />
                     ),
                 }}

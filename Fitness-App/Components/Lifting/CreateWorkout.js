@@ -26,7 +26,7 @@ const CreateWorkout = ({navigation}) => {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "black",
+    backgroundColor: "#2D3856",
     display: "flex"
   },
   textInput: {

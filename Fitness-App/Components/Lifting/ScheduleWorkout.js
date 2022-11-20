@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useQuery } from "@tanstack/react-query";
+import { Calendar } from "react-native-calendars";
+
 import Workout from './Workout';
-import LinearGradient from "react-native-linear-gradient";
 
 const getWorkouts = async ()  => {
   const requestOptions = {
@@ -22,30 +23,41 @@ const ScheduleWorkout = () => {
     
     if (status === 'loading') {
         return (
-            <View style = {styles.container}>
+            <View style = {styles.loadingContainer}>
                 <Text style = {styles.textInput}>Data is Loading...</Text>
             </View>
         )
     } else if (status === 'error') {
       return (
-          <View style = {styles.container}>
-              <Text style = {styles.textInput}>Data is Loading...</Text>
+          <View style = {styles.errorContainer}>
+              <Text style = {styles.textInput}>Error Loading Data</Text>
           </View>
       )
     } else { //Get is successful
       return(
-        <View style = {styles.container}>
-            <Text style = {styles.textInput}>Schedule Workout Screen</Text>
+        <ScrollView style = {styles.container}>
+            <Text style = {styles.textInput}>Choose Dates</Text>
+            <Calendar/>
+            <Text style = {styles.textInput}>Choose Exercises</Text>
             {data.map(workout => <Workout key = {workout.Workout_ID} workout = {workout}/>)}
-        </View>
+        </ScrollView>
       )
     }
 }
 
 const styles = StyleSheet.create({
+  errorContainer: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  loadingContainer: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
   container: {
     backgroundColor: "#2D3856",
     overflow: "scroll",
+    padding: 10,
     flex: 1
   },
   textInput: {
