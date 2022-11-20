@@ -45,6 +45,7 @@ const ScheduleWorkout = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#2D3856",
+    overflow: "scroll",
     flex: 1
   },
   textInput: {
