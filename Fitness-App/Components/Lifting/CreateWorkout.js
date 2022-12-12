@@ -1,13 +1,16 @@
-import React from "react";
-import { View, Text, TouchableOpacity,  StyleSheet } from "react-native";
-import Week from "./Calendar/Week"
-import Month from "./Calendar/Month"
+import {useEffect, useState} from "react";
+import { View, Text, TouchableOpacity,  StyleSheet, ScrollView } from "react-native";
+import MonthCalendar from "../../Utils/GetScheduledWorkoutsCalendar/MonthCalendar.js";
+
+
 
 
 const CreateWorkout = ({navigation}) => {
+
   return (
-    <View>
-      <Text style = {styles.textInput}>Lifting Page</Text>
+    <ScrollView style = {styles.container}>
+      <Text style = {styles.textInput}>Workout Schedule</Text>
+      <MonthCalendar/>
       <TouchableOpacity
         style = {styles.touchable} 
         onPress = {() => navigation.navigate('Workout Input')}
@@ -20,29 +23,30 @@ const CreateWorkout = ({navigation}) => {
       >
         <Text style = {styles.touchableText}>Schedule Workout</Text>
       </TouchableOpacity>
-      <Text style = {styles.textInput}>Workout Schedule</Text>
-    </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#2D3856",
-    display: "flex"
+    backgroundColor: "#2D3856", //Grey
+    overflow: "scroll",
+    padding: 10,
+    flex: 1
   },
   textInput: {
     alignSelf: "center",
-    color: "#00308F",
+    color: "white",
     fontSize: 20
   },
   touchable: {
-    backgroundColor: "#00308F",
+    backgroundColor: "#FFB800", //yellow
     alignItems: "center",
     padding: 10,
     margin: 10,
     borderRadius: 12
   },
   touchableText: {
-    color: "white",
+    color: "black",
     fontSize: 20
   },
   input: {

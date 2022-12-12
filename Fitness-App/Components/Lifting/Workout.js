@@ -2,20 +2,22 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useEffect } from 'react';
 
 
-const Workout = ({ workout }) => {
+const Workout = ({workout, updateActiveWorkouts}) => {
 
     const [isActive, setIsActive] = useState(false);
 
     const buttonPress = () => {
         if (isActive == true){
             setIsActive(false)
+            updateActiveWorkouts(workout, false)
         } else {
             setIsActive(true)
+            updateActiveWorkouts(workout, true)
         }
     }
-
     
     const styles = StyleSheet.create({
         overlayContainer: {
@@ -64,7 +66,6 @@ const Workout = ({ workout }) => {
         }
     });
 /*
-
 */
     return (
         <View style = {styles.overlayContainer}>

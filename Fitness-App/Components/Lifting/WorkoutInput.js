@@ -7,28 +7,33 @@ const WorkoutInput = ({navigation}) => {
   const [reps, setReps] = useState('');
   const [sets, setSets] = useState('');
   const [weight, setWeight] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false)
 
 
   const postWorkout = async () => {
-
-    try {
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({name: name, reps: reps, sets: sets, weight: weight})
-      }
-      console.log(requestOptions.body)
-      await fetch("http://192.168.0.10:3000/input", requestOptions)
-      .then(response => {
-        response.json()
-        .then(data => {
-          Alert.alert("Post Created")
+    if ((name != '') && (reps != '') && (sets != '') && (weight != '')) {
+      setShowSuccess(true)
+      try {
+        const requestOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({name: name, reps: reps, sets: sets, weight: weight})
+        }
+        console.log(requestOptions.body)
+        await fetch("http://192.168.0.5:3000/workout-input", requestOptions)
+        .then(response => {
+          response.json()
+          .then(data => {
+            Alert.alert("Post Created")
+          })
         })
-      })
-    } catch (error) {
-      console.log(error);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log('invalid input')
     }
   }
 
@@ -70,6 +75,9 @@ const WorkoutInput = ({navigation}) => {
                 onChangeText={(val) => setWeight(val)}
               />
           </View> 
+            { showSuccess &&
+              <Text style = {{color: "white", alignSelf: "center"}}>Workout has been scheduled!</Text>
+            }
           <TouchableOpacity
             style = {styles.touchable} 
             onPress = {postWorkout}
@@ -86,11 +94,11 @@ const WorkoutInput = ({navigation}) => {
 }
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    margin: 10
+    flex: 1,
+    backgroundColor: "#2D3856"
   },
   inputContainer: {
-    backgroundColor: "#00308F",
+    backgroundColor: "#2D3856",
     margin: 5,
     borderRadius: 12
   },
@@ -107,16 +115,18 @@ const styles = StyleSheet.create({
   textInput: {
     alignSelf: "center",
     fontSize: 20,
+    margin: 10,
+    color: "white"
   },
   touchable: {
-    backgroundColor: "#00308F",
+    backgroundColor: "#FFB800",  //Yellow
     alignItems: "center",
     padding: 10,
     margin: 10,
     borderRadius: 12
   },
   touchableText: {
-    color: "white",
+    color: "black",
     fontSize: 20
   },
 });
