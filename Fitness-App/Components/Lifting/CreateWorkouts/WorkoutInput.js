@@ -22,7 +22,7 @@ const WorkoutInput = ({navigation}) => {
           body: JSON.stringify({name: name, reps: reps, sets: sets, weight: weight})
         }
         console.log(requestOptions.body)
-        await fetch("http://192.168.0.5:3000/workout-input", requestOptions)
+        await fetch("http://192.168.0.10:3000/workout-input", requestOptions)
         .then(response => {
           response.json()
           .then(data => {
@@ -76,7 +76,7 @@ const WorkoutInput = ({navigation}) => {
               />
           </View> 
             { showSuccess &&
-              <Text style = {{color: "white", alignSelf: "center"}}>Workout has been scheduled!</Text>
+              <Text style = {{color: "white", alignSelf: "center"}}>Workout has been entered!</Text>
             }
           <TouchableOpacity
             style = {styles.touchable} 
@@ -128,6 +128,6 @@ const styles = StyleSheet.create({
   touchableText: {
     color: "black",
     fontSize: 20
-  },
+  }
 });
 export default WorkoutInput;

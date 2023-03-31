@@ -4,7 +4,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useEffect } from 'react';
 
-
 const Workout = ({workout, updateActiveWorkouts}) => {
 
     const [isActive, setIsActive] = useState(false);
@@ -18,7 +17,6 @@ const Workout = ({workout, updateActiveWorkouts}) => {
             updateActiveWorkouts(workout, true)
         }
     }
-    
     const styles = StyleSheet.create({
         overlayContainer: {
             backgroundColor: "#000000",
@@ -60,11 +58,12 @@ const Workout = ({workout, updateActiveWorkouts}) => {
             alignSelf: "center",
             color: "white",
             fontSize: 36,
-            opacity: isActive? 1: 0,
+            opacity: isActive ? 1: 0,
             position: "absolute",
             zIndex: 1
         }
     });
+    
 /*
 */
     return (
@@ -97,7 +96,9 @@ const Workout = ({workout, updateActiveWorkouts}) => {
         </View>
         
     )
+    
 }
+
 
 
 export default Workout

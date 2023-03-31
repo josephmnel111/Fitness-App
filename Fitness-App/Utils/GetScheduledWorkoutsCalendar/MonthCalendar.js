@@ -14,7 +14,7 @@ const getSchedule = async ()  => {
       }
     }
     //This can change, need to figure this out eventually
-    const res = await fetch("http://192.168.0.5:3000/schedule-input", requestOptions)
+    const res = await fetch("http://192.168.0.10:3000/schedule-input", requestOptions)
     return res.json();
   }
 

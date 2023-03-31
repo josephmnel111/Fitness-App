@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import { View, Text, TouchableOpacity,  StyleSheet, ScrollView } from "react-native";
-import MonthCalendar from "../../Utils/GetScheduledWorkoutsCalendar/MonthCalendar.js";
+import MonthCalendar from "../../../Utils/GetScheduledWorkoutsCalendar/MonthCalendar.js";
 
 
 

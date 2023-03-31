@@ -4,7 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { FontAwesome5 } from '@expo/vector-icons';
 import ProfileScreen from '../Components/Profile/Profile';
 import SettingsScreen from '../Components/Settings/Settings';
-import LiftingScreen from '../Components/Lifting/Lifting';
+import LiftingScreen from '../Components/Lifting/ButtonNavigation/LiftingNavigation';
 import RunningScreen from '../Components/Running/Running';
 
 

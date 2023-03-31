@@ -1,6 +1,6 @@
-//Run: expo start --tunnel
-
+//Expo start --tunnel
 import * as React from 'react';
+import { registerRootComponent } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import DrawerNavigator from './Navigation/DrawerNavigator';
@@ -16,4 +16,4 @@ export default function App() {
     </QueryClientProvider>
   );
 }
-
+registerRootComponent(App);

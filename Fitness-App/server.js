@@ -1,5 +1,5 @@
 //npm run devstart x
-//Currently - x = 192.168.0.5
+//Currently - x = 192.168.0.10
 //Find by running ipcofig in terminal and copy IPv4 data
 
 const express = require('express')
@@ -20,6 +20,30 @@ const app = express()
 app.use(bp.json())
 app.use(bp.urlencoded({extended: true}))
 
+
+/*Profile Section*/
+app.get("/steps-info", function(req, resp) {
+    console.log('Get Sent!')
+    connection.query("SELECT * FROM steps ORDER BY Date ASC", function(err, data, fields) {
+        if (err) throw err;
+        resp.send(data).status(200)
+    });
+})
+
+app.post("/steps-info", function(req, resp) {
+
+})
+
+app.get("/workouts-info", function(req, resp) {
+    console.log("Get Sent!")
+    connection.query("SELECT * FROM schedule INNER JOIN workout on schedule.Workout_ID = workout.workout_ID", function (err, data, fields) {
+        if (err) throw err;
+        resp.send(data).status(200)
+      });
+})
+
+
+/*Lifting Section*/
 app.get("/workout-input", function(req, resp) {
     console.log("Get Sent!")
     connection.query("SELECT * FROM workout", function (err, data, fields) {

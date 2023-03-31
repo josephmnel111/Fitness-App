@@ -1,16 +1,14 @@
 import * as React from 'react';
 import { StyleSheet, View, Button, Text, TextInput, TouchableOpacity } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import StackNavigator from '../../Navigation/StackNavigator'
 import { createStackNavigator } from "@react-navigation/stack";
-import CreateWorkout from "./CreateWorkout";
-import WorkoutInput from "./WorkoutInput"
-import ScheduleWorkout from "./ScheduleWorkout"
+import CreateWorkout from "../LiftingMain/CreateWorkout";
+import WorkoutInput from "../CreateWorkouts/WorkoutInput"
+import ScheduleWorkout from "../ScheduleWorkouts/ScheduleWorkout"
 
 const Stack = createStackNavigator();
 
 
-const LiftingScreen = () => {
+const LiftingNavigation = () => {
   
     return (
        //#4169E1
@@ -52,4 +50,4 @@ const LiftingScreen = () => {
 
     }
   });
- export default LiftingScreen;
+ export default LiftingNavigation;
