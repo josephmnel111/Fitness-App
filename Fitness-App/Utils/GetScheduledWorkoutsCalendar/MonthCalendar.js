@@ -2,6 +2,7 @@ import {View, Text, StyleSheet} from "react-native"
 import {useState, useEffect} from "react"
 import { useQuery } from "@tanstack/react-query";
 import { useFocusEffect } from "@react-navigation/native";
+import {NetworkIP} from "../../Utils/Constants/NetworkSettings"
 import moment from "moment"
 import Days from "./Days"
 
@@ -14,7 +15,7 @@ const getSchedule = async ()  => {
       }
     }
     //This can change, need to figure this out eventually
-    const res = await fetch("http://192.168.0.10:3000/schedule-input", requestOptions)
+    const res = await fetch(NetworkIP + "/schedule-input", requestOptions)
     return res.json();
   }
 

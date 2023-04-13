@@ -168,6 +168,8 @@ const GraphSection = (props) => {
           fromZero={true}
           chartConfig={{
             decimalPlaces:0,
+            backgroundGradientFromOpacity: 0,
+            backgroundGradientToOpacity: 0,
             backgroundColor: "#18181C",
             color: (opacity = 1) => `#1D65E1`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -193,7 +195,10 @@ const styles = StyleSheet.create({
     container: {
       backgroundColor: '#18181C',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      margin: 15,
+      padding: 10,
+      borderRadius: 20
     },
 })
 export default GraphSection;

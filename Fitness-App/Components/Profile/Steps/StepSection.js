@@ -31,9 +31,9 @@ const StepSection = ( props ) =>{
           style = {styles.progressBar}
           radius = {40}
           value={percentage}
-          progressValueColor="#2D3856"
+          progressValueColor="#18181C"
           activeStrokeColor="#1D65E1"
-          inActiveStrokeOpacity={.4}
+          inActiveStrokeOpacity={1}
           dashedStrokeConfig={{
             count: 30,
             width: 4,
@@ -47,13 +47,17 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     fontSize: 18,
-    margin: 10,
+    margin: 10
   },
   
   container: {
-    alignItems: 'center',
     backgroundColor: '#18181C',
-    justifyContent: 'center'
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 15,
+    padding: 5,
+    borderRadius: 20
   },
   dataContainer: {
     alignItems: 'center',
@@ -64,8 +68,6 @@ const styles = StyleSheet.create({
   data: {
     top: 10,
     color: 'white',
-    justifyContent: 'center',
-    position: 'absolute',
   }
 });
 //Blue color: #1D65E1

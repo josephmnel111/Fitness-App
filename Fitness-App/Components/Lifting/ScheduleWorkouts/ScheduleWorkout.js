@@ -2,6 +2,7 @@ import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from "react-nati
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useState, useEffect } from "react";
 import MonthCalendar from "../../../Utils/ScheduleWorkoutsCalendar/MonthCalendar";
+import {NetworkIP} from "../../../Utils/Constants/NetworkSettings";
 import Workout from "./Workout";
 
 const getWorkouts = async ()  => {
@@ -13,7 +14,7 @@ const getWorkouts = async ()  => {
     }
   }
   //This can change, need to figure this out eventually
-  const res = await fetch("http://192.168.0.10:3000/workout-input", requestOptions)
+  const res = await fetch(NetworkIP + "/workout-input", requestOptions)
   return res.json();
 }
 
@@ -52,7 +53,7 @@ const ScheduleWorkout = ({navigation}) => {
         }
         setShowSuccess(true)
         console.log(requestOptions.body)
-        await fetch("http://192.168.0.10:3000/schedule-input", requestOptions)
+        await fetch(NetworkIP + "/schedule-input", requestOptions)
         .then(response => {
           response.json()
           .then(data => {

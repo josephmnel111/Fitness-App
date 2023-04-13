@@ -1,8 +1,14 @@
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { useState } from 'react';
 
 
 
-const TimeSection = ( {chooseTime} ) => {
+const TimeSection = ( {chooseTime, displayWorkoutContainer} ) => {
+
+    const [thirtyDayState, setThirtyDayState] = useState("inactive");
+    const [ninetyDayState, setNinetyDayState] = useState("inactive");
+    const [oneYearState, setOneYearState] = useState("inactive");
+    const [allTimeState, setAllTimeState] = useState("active");
 
     const getCurrentDay = () => {
         var date = new Date().getDate();
@@ -12,56 +18,102 @@ const TimeSection = ( {chooseTime} ) => {
     }
 
     const ThirtyDays = () => {
+        setThirtyDayState("active")
+        setNinetyDayState("inactive")
+        setOneYearState("inactive")
+        setAllTimeState("inactive")
         chooseTime(30)
     }
 
     const NinetyDays = () => {
+        setThirtyDayState("inactive")
+        setNinetyDayState("active")
+        setOneYearState("inactive")
+        setAllTimeState("inactive")
         chooseTime(90)
     }
 
     const OneYear = () => {
+        setThirtyDayState("inactive")
+        setNinetyDayState("inactive")
+        setOneYearState("active")
+        setAllTimeState("inactive")
         chooseTime(365)
     }
 
     const AllTime = () => {
+        setThirtyDayState("inactive")
+        setNinetyDayState("inactive")
+        setOneYearState("inactive")
+        setAllTimeState("active")
         chooseTime(99999)
 
     }
     return (
         <View style = {styles.container}>
-            <TouchableOpacity style = {styles.button}>
-                <Text style = {styles.text} onPress = {() =>ThirtyDays()} >30 Days</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.button} onPress = {() =>NinetyDays()}>
-                <Text style = {styles.text}>90 Days</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.button} onPress = {() =>OneYear()}>
-                <Text style = {styles.text}>1 Year</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.button} onPress = {() =>AllTime()}>
-                <Text style = {styles.text}>All Time</Text>
-            </TouchableOpacity>
+            <View style = {styles.timeContainer}>
+                <TouchableOpacity style = {[styles.timeButton, {backgroundColor: thirtyDayState == "active" ? "#1D65E1" : "#1D1E24"}]}>
+                    <Text style = {styles.text} onPress = {() =>ThirtyDays()} >30 D</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {[styles.timeButton, {backgroundColor: ninetyDayState == "active" ? "#1D65E1" : "#1D1E24"}]} onPress = {() =>NinetyDays()}>
+                    <Text style = {styles.text}>90 D</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {[styles.timeButton, {backgroundColor: oneYearState == "active" ? "#1D65E1" : "#1D1E24"}]} onPress = {() =>OneYear()}>
+                    <Text style = {styles.text}>1 Y</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {[styles.timeButton, {backgroundColor: allTimeState == "active" ? "#1D65E1" : "#1D1E24"}]} onPress = {() =>AllTime()}>
+                    <Text style = {styles.text}>All</Text>
+                </TouchableOpacity>
+            </View>
+            <View style = {styles.optionsItem}>
+                      <TouchableOpacity style = {styles.optionsButton} onPress = {() =>displayWorkoutContainer()}>
+                          <Text style = {styles.text}>More Options</Text>
+                      </TouchableOpacity>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
+        backgroundColor: '#18181C',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: 320,
+        height: 110,
+        margin: 15,
+        padding: 5,
+        borderRadius: 20
     },
-    button: {
-        backgroundColor: '#1D65E1',
+    timeContainer: {
         justifyContent: 'center',
-        borderRadius: 15,
-        height: 30,
-        width: 60,
-        margin: 10
+        alignItems: 'center',
+        flexDirection: 'row'
     },
     text: {
         color: 'white',
         alignSelf: 'center'
-    }
+    },
+    optionsItem: {
+        flex: 1,
+    },
+    timeButton: {
+       justifyContent: 'center',
+       borderColor: '#1D65E1',
+       borderWidth: 2,
+       borderRadius: 15,
+       height: 30,
+       width: 55,
+       margin: 10
+     },
+     optionsButton: {
+        backgroundColor: '#1D1E24',
+        borderColor: '#1D65E1',
+        borderWidth: 2,
+        justifyContent: 'center',
+        borderRadius: 15,
+        height: 30,
+        width: 110,
+     }
 })
 export default TimeSection;

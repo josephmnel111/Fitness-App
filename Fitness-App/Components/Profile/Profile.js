@@ -4,7 +4,8 @@ import WorkoutContainerSection from './WorkoutContainer/WorkoutContainerSection'
 import StepSection from './Steps/StepSection';
 import GraphSection from './Graph/GraphSection';
 import TimeSection from './Time/TimeSection';
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {NetworkIP} from '../../Utils/Constants/NetworkSettings';
+import { View, ScrollView, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { useQuery } from "@tanstack/react-query";
 import { useState } from 'react'
 
@@ -27,7 +28,7 @@ const getWorkouts = async ()  => {
     }
   }
   //This can change, need to figure this out eventually
-  const res = await fetch("http://192.168.0.10:3000/workouts-info", requestOptions)
+  const res = await fetch(NetworkIP + "/workouts-info", requestOptions)
   return res.json();
 }
 
@@ -40,7 +41,7 @@ const getSteps = async ()  => {
      }
    }
    //This can change, need to figure this out eventually
-   const res = await fetch("http://192.168.0.10:3000/steps-info", requestOptions)
+   const res = await fetch(NetworkIP + "/steps-info", requestOptions)
    return res.json();
  }
 
@@ -52,8 +53,6 @@ const ProfileScreen = () =>{
    const [activeWorkout, setActiveWorkout] = useState("Steps")
    const [timeInterval, setTimeInterval] = useState(99999)
    const [displayed, setDisplayed] = useState(false);
-   console.log('hi')
-
 
    const chooseTime = (timeInterval) => {
     setTimeInterval(timeInterval)
@@ -85,28 +84,25 @@ const ProfileScreen = () =>{
       ) 
     } else {
       return (
-         <View style={{ flex: 1, backgroundColor: "#1D1E24"}}>
+         <ScrollView style={styles.mainContainer}>
             {
               displayed ? (
                 <View>
                   <WorkoutContainerSection  activeWorkout = {activeWorkout} displayWorkoutContainer = {displayWorkoutContainer} handleActiveWorkout = {handleActiveWorkout} workoutData = {workoutResponse.data}></WorkoutContainerSection>
-              </View>
+                </View>
               ): null
             }
             {
               displayed ? null: (
                 <View>
-                  <TouchableOpacity style = {styles.button} onPress = {() =>displayWorkoutContainer()}>
-                      <Text style = {styles.text}>More Options</Text>
-                  </TouchableOpacity>
-                  <StepSection time = {timeInterval} activeWorkout = {activeWorkout} workoutData = {workoutResponse.data} stepsData = {stepsResponse.data}  style = {styles.stepSection}/>
+                  <StepSection time = {timeInterval} activeWorkout = {activeWorkout} workoutData = {workoutResponse.data} stepsData = {stepsResponse.data}/>
                   <GraphSection time = {timeInterval} activeWorkout = {activeWorkout} workoutData = {workoutResponse.data} stepsData = {stepsResponse.data} ></GraphSection>
-                  <TimeSection chooseTime = {chooseTime}></TimeSection>
+                  <TimeSection chooseTime = {chooseTime} displayWorkoutContainer = {displayWorkoutContainer}></TimeSection>
                 </View>
               )
             }
    
-         </View>
+         </ScrollView>
       )
       
     }
@@ -127,18 +123,13 @@ const ProfileScreen = () =>{
      backgroundColor: "#1D1E24",
      color: "white"
    },
-  stepSection: {
-     position: 'absolute',
-     right: 50
+  mainContainer: {
+    flex: 1,
+    backgroundColor: "#1D1E24"
   },
-  button: {
-   backgroundColor: '#1D65E1',
-   justifyContent: 'center',
-   borderRadius: 15,
-   height: 30,
-   width: 60,
-   margin: 10
- },
+  optionsItem: {
+    flex: 1,
+  },
  text: {
    color: 'white',
    alignSelf: 'center'

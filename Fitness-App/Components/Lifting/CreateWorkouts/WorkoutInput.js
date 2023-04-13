@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { View, TouchableOpacity, Text, TextInput,  StyleSheet, Alert} from "react-native";
+import {NetworkIP} from "../../../Utils/Constants/NetworkSettings";
+
 
 const WorkoutInput = ({navigation}) => {
   
@@ -22,7 +24,7 @@ const WorkoutInput = ({navigation}) => {
           body: JSON.stringify({name: name, reps: reps, sets: sets, weight: weight})
         }
         console.log(requestOptions.body)
-        await fetch("http://192.168.0.10:3000/workout-input", requestOptions)
+        await fetch(networkIP + "/workout-input", requestOptions)
         .then(response => {
           response.json()
           .then(data => {
