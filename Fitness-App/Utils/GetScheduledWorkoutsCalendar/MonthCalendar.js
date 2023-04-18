@@ -1,10 +1,20 @@
-import {View, Text, StyleSheet} from "react-native"
+import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
 import {useState, useEffect} from "react"
 import { useQuery } from "@tanstack/react-query";
 import { useFocusEffect } from "@react-navigation/native";
 import {NetworkIP} from "../../Utils/Constants/NetworkSettings"
 import moment from "moment"
 import Days from "./Days"
+
+const day = new Date()
+const monthNames = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"
+]
+let month = day.getMonth()
+month = month + 1
+console.log(month)
+let year = day.getFullYear()
+let URLValue = "?month=" + month + "&year=" + year
 
 const getSchedule = async ()  => {
 
@@ -15,7 +25,7 @@ const getSchedule = async ()  => {
       }
     }
     //This can change, need to figure this out eventually
-    const res = await fetch(NetworkIP + "/schedule-input", requestOptions)
+    const res = await fetch(NetworkIP + "/schedule-input" + URLValue, requestOptions)
     return res.json();
   }
 
@@ -55,6 +65,10 @@ const MonthCalendar = (props) => {
         if (weekNumbers != []) {
             calendarVals.push(weekNumbers)
         }
+        let lastWeekFillerVals = 7 - calendarVals[calendarVals.length - 1].length
+        for (let i = 0; i < lastWeekFillerVals; ++i) {
+            calendarVals[calendarVals.length - 1].push('')
+        }
         let dateWorkoutValues = []
         if (data != undefined) {
         data.sort(function(a,b) {
@@ -65,7 +79,7 @@ const MonthCalendar = (props) => {
             let weekArray = []
             week.forEach((day) => {
                 let dataArray = []
-                if (data[dataCounter] != undefined) {
+                if (data[dataCounter] != undefined) { //If there is a recorded value for that date
                     let dateValue = data[dataCounter].Date
                     let dayValue = dateValue.substring(dateValue.indexOf("/") + 1, dateValue.lastIndexOf("/"))
                     if (dayValue == day) {
@@ -86,7 +100,6 @@ const MonthCalendar = (props) => {
                 } else {
                     weekArray.push({id: idCounter, dayNumber: day, isActive: false, data: {Schedule_ID: -1, Workout_ID: -1, Date: ''}})
                     ++idCounter
-                    
                 }
             })
             dateWorkoutValues.push({weekId: weekIdCounter, week: weekArray})
@@ -151,10 +164,21 @@ const MonthCalendar = (props) => {
         ) 
     } else {
         return (
-            <View>
+            <View style = {styles.calendarContainer}>
                 {
                 <View>
-                    <View style={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row' }}>
+                    <View style = {styles.calendarHeader}>
+                        <TouchableOpacity>
+                            <Text style = {styles.calendarHeaderText}>{'<   '}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style ={styles.calendarHeaderText}>{monthNames[day.getMonth()]}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style = {styles.calendarHeaderText}>{'   >'}</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.daysOfWeekContainer}>
                         {
                             dayNames.map((dayName) => (
                                 <View key = {dayName} style={{ flex: 1, alignSelf: 'stretch' }}><Text style = {{textAlign: "center", color: "white"}}>{dayName}</Text></View>
@@ -190,16 +214,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
-    backgroundColor: "#2D3856",
+    backgroundColor: "#1D1E24",
     color: "white"
   },
   loadingContainer: {
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
-    backgroundColor: "#2D3856",
+    backgroundColor: "#1D1E24",
     color: "white"
   },
+  calendarContainer: {
+    backgroundColor: '#18181C',
+    borderRadius: 20,
+    margin: 10
+ },
+ daysOfWeekContainer: {
+     flex: 1, 
+     alignSelf: 'stretch', 
+     flexDirection: 'row' 
+ },
+ calendarHeaderText: {
+    alignSelf: 'center',
+    color: 'white',
+    fontSize: 20
+ },
+ calendarHeader: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flex: 1,
+    margin: 10
+ }
 })
 
 export default MonthCalendar;

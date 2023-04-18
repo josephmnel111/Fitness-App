@@ -28,40 +28,54 @@ const WorkoutContainerSection = (props) => {
     }
 
     const changeActiveButton = (e) => {
-        console.log(e)
         activeButton = e.label
     }
 
     return (
-        <View >
+        <View style = {styles.container}>
             <RadioButtonRN
                 data={containerWorkoutArray}
-                initial = {initialValue}
-                boxActiveBgColor={"white"}
+                initial={initialValue}
+                activeColor={"#1D65E1"}
+                boxActiveBgColor={"#1D1E24"}
+                boxDeactiveBgColor={"#1D1E24"}
+                textColor={"white"}
                 selectedBtn={(e) => changeActiveButton(e)}
             />
-            
-            <TouchableOpacity style = {styles.button} onPress = {() => handleSubmit()}>
-                <Text style = {styles.text}>Submit</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.button} onPress = {() => props.displayWorkoutContainer()}>
-                <Text style = {styles.text}>Cancel</Text>
-            </TouchableOpacity>
+            <View style = {styles.buttonContainer}>
+                <TouchableOpacity style = {styles.button} onPress = {() => handleSubmit()}>
+                    <Text style = {styles.text}>Submit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.button} onPress = {() => props.displayWorkoutContainer()}>
+                    <Text style = {styles.text}>Cancel</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#1D1E24',
+        padding: 10
+    },
     text: {
         color: "white"
     },
     button: {
-        backgroundColor: '#1D65E1',
+        backgroundColor: '#1D1E24',
+        borderColor: 'white',
+        borderWidth: 2,
         justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: 15,
         height: 30,
-        width: 60,
-        margin: 10
+        width: 110,
+        margin: 15
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    }
 })
 
 export default WorkoutContainerSection;

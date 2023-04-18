@@ -9,6 +9,7 @@ const Days = ({value, updateActiveDates}) => {
         const d = new Date()
         let month = d.getMonth()
         let year = d.getFullYear()
+        month = month + 1
         let fullDate = month + "/" + day.value + "/" + year
         return fullDate
     }
@@ -28,13 +29,15 @@ const Days = ({value, updateActiveDates}) => {
 
     const handleInput = (day) => {
         let dateValue = getDate(day)
-        if (day.isActive) {
-            day.isActive = false
-            updateActiveDates(dateValue, false)
-        }
-        else {
-            day.isActive = true
-            updateActiveDates(dateValue, true)
+        if (day.value != "") {
+            if (day.isActive) {
+                day.isActive = false
+                updateActiveDates(dateValue, false)
+            }
+            else {
+                day.isActive = true
+                updateActiveDates(dateValue, true)
+            }
         }
         let beginArray = days.slice(0, day.id)
         beginArray.push(day)
@@ -47,12 +50,12 @@ const Days = ({value, updateActiveDates}) => {
     }
 
     return (
-        <View style={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row' }}>
+        <View style={{ flex: 1, alignSelf: 'center', flexDirection: 'row' }}>
             {
                 days.map((day) => (
                     <TouchableOpacity key = {day.id} onPress = {() =>handleInput(day)} style={{ flex: 1, alignSelf: 'stretch' }}>                   
-                         <View style={{ flex: 1, alignSelf: 'stretch', backgroundColor: day.isActive? "#FFB800": "#2D3856", borderRadius: 100 }}>
-                            <Text style = {{textAlign: "center", color: day.isActive? "black": "white"}}>{day.value}</Text>
+                         <View style={{ flex: 1, alignSelf: 'center', backgroundColor: day.isActive? "#1D65E1": "#18181C", borderRadius: 100, height: 30, width: 30, justifyContent: 'center'}}>
+                            <Text style = {{textAlign: "center", color: "white"}}>{day.value}</Text>
                         </View>
                     </TouchableOpacity>
                 ))

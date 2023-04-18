@@ -21,7 +21,7 @@ const getWorkouts = async ()  => {
     //{ data.res.map(workout => <Text>{workout.Name}</Text>)}
 const ScheduleWorkout = ({navigation}) => {
   
-    const {data, status} = useQuery(["workouts"], getWorkouts);
+    const {data, status} = useQuery([], getWorkouts);
     const [dates, setDates] = useState([])
     const [showSuccess, setShowSuccess] = useState(false)
     const [workoutData, setWorkoutData] = useState([])
@@ -52,12 +52,10 @@ const ScheduleWorkout = ({navigation}) => {
           body: JSON.stringify({dateValues: dates, workoutValues: workoutData})
         }
         setShowSuccess(true)
-        console.log(requestOptions.body)
         await fetch(NetworkIP + "/schedule-input", requestOptions)
         .then(response => {
           response.json()
           .then(data => {
-            console.log('hi')
             navigation.navigate('Create Workout')
             Alert.alert("Post Created")
           })
@@ -99,19 +97,24 @@ const ScheduleWorkout = ({navigation}) => {
     } else { //Get is successful
       return(
         <ScrollView style = {styles.container}>
-            <Text style = {styles.textInput}>Choose Dates</Text>
-              <MonthCalendar updateActiveDates = {updateActiveDates}/>
-            <Text style = {styles.textInput}>Choose Exercises</Text>
+        <Text style = {styles.textInput}>Choose Dates</Text>
+          <View style = {styles.scheduleContainer}>
+            <MonthCalendar updateActiveDates = {updateActiveDates}/>
+          </View>
+          <Text style = {styles.textInput}>Choose Exercises</Text>
+          <View style = {styles.workoutContainer}>
             {data.map(workout => <Workout key = {workout.Workout_ID} workout = {workout} updateActiveWorkouts = {updateActiveWorkouts}/>)}
             { showSuccess &&
               <Text style = {{color: "white", alignSelf: "center"}}>Workout has been scheduled!</Text>
             }
             <TouchableOpacity
-              style = {styles.touchable} 
+              style = {styles.button} 
               onPress = {postSchedule}
             >
-            <Text style = {styles.touchableText}>Schedule</Text>
+            <Text style = {styles.buttonText}>Schedule</Text>
             </TouchableOpacity>
+
+          </View>
         </ScrollView>
       )
     }
@@ -133,28 +136,40 @@ const styles = StyleSheet.create({
     color: "white"
   },
   container: {
-    backgroundColor: "#2D3856", //Grey
+    backgroundColor: "#1D1E24",
     overflow: "scroll",
     padding: 10,
     flex: 1
   },
-  touchable: {
-    backgroundColor: "#FFB800", //yellow
+  scheduleContainer: {
+    backgroundColor: "#18181C",
+    margin: 15,
+    padding: 5,
+    borderRadius: 20
+  },
+  workoutContainer: {
+    backgroundColor: "#18181C",
+    margin: 15,
+    padding: 5,
+    borderRadius: 20
+  },
+  button: {
+    borderColor: 'white',
+    borderWidth: 2,
     alignItems: "center",
     padding: 10,
     margin: 10,
     marginBottom: 20,
     borderRadius: 12
   },
-  touchableText: {
-    color: "black",
+  buttonText: {
+    color: "white",
     fontSize: 20
   },
   textInput: {
     alignSelf: "center",
     color: "#FFFFFF",
-    fontSize: 20,
-    marginTop: 25
+    fontSize: 20
   }
 });
 

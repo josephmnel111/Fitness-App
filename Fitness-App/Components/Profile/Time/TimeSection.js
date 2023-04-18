@@ -99,8 +99,8 @@ const styles = StyleSheet.create({
     },
     timeButton: {
        justifyContent: 'center',
-       borderColor: '#1D65E1',
-       borderWidth: 2,
+       borderColor: 'white',
+       borderWidth: .8,
        borderRadius: 15,
        height: 30,
        width: 55,
@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
      },
      optionsButton: {
         backgroundColor: '#1D1E24',
-        borderColor: '#1D65E1',
-        borderWidth: 2,
+        borderColor: 'white',
+        borderWidth: .8,
         justifyContent: 'center',
         borderRadius: 15,
         height: 30,

@@ -24,7 +24,7 @@ const WorkoutInput = ({navigation}) => {
           body: JSON.stringify({name: name, reps: reps, sets: sets, weight: weight})
         }
         console.log(requestOptions.body)
-        await fetch(networkIP + "/workout-input", requestOptions)
+        await fetch(NetworkIP + "/workout-input", requestOptions)
         .then(response => {
           response.json()
           .then(data => {
@@ -41,9 +41,9 @@ const WorkoutInput = ({navigation}) => {
 
 
   return (
-      <View style = {styles.container}>
+      <View style = {styles.mainContainer}>
         <Text style = {styles.textInput}>
-          Workout Input Screen
+          Create New Workout
         </Text>
 
           <View style = {styles.inputContainer}>
@@ -81,26 +81,26 @@ const WorkoutInput = ({navigation}) => {
               <Text style = {{color: "white", alignSelf: "center"}}>Workout has been entered!</Text>
             }
           <TouchableOpacity
-            style = {styles.touchable} 
+            style = {styles.button} 
             onPress = {postWorkout}
           > 
-            <Text style = {styles.touchableText}>Create Workout</Text>
+            <Text style = {styles.buttonText}>Create Workout</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style = {styles.touchable} 
+            style = {styles.button} 
           >
-            <Text style = {styles.touchableText}>Schedule Workout</Text>
+            <Text style = {styles.buttonText}>Schedule Workout</Text>
           </TouchableOpacity>
       </View>
   );
 }
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
-    backgroundColor: "#2D3856"
+    backgroundColor: "#1D1E24"
   },
   inputContainer: {
-    backgroundColor: "#2D3856",
+    backgroundColor: "#1D1E24",
     margin: 5,
     borderRadius: 12
   },
@@ -120,15 +120,16 @@ const styles = StyleSheet.create({
     margin: 10,
     color: "white"
   },
-  touchable: {
-    backgroundColor: "#FFB800",  //Yellow
+  button: {
     alignItems: "center",
+    borderColor: 'white',
+    borderWidth: 2,
     padding: 10,
     margin: 10,
     borderRadius: 12
   },
-  touchableText: {
-    color: "black",
+  buttonText: {
+    color: "white",
     fontSize: 20
   }
 });

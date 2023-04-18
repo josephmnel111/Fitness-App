@@ -12,23 +12,23 @@ const CreateWorkout = ({navigation}) => {
       <Text style = {styles.textInput}>Workout Schedule</Text>
       <MonthCalendar/>
       <TouchableOpacity
-        style = {styles.touchable} 
+        style = {styles.button} 
         onPress = {() => navigation.navigate('Workout Input')}
       >
-        <Text style = {styles.touchableText}>Create Workout</Text>
+        <Text style = {styles.buttonText}>Create Workout</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style = {styles.touchable} 
+        style = {styles.button} 
         onPress = {() => navigation.navigate('Schedule Workout')}
       >
-        <Text style = {styles.touchableText}>Schedule Workout</Text>
+        <Text style = {styles.buttonText}>Schedule Workout</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#2D3856", //Grey
+    backgroundColor: "#1D1E24",
     overflow: "scroll",
     padding: 10,
     flex: 1
@@ -38,15 +38,16 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20
   },
-  touchable: {
-    backgroundColor: "#FFB800", //yellow
+  button: {
     alignItems: "center",
+    borderColor: 'white',
+    borderWidth: 2,
     padding: 10,
     margin: 10,
     borderRadius: 12
   },
-  touchableText: {
-    color: "black",
+  buttonText: {
+    color: "white",
     fontSize: 20
   },
   input: {

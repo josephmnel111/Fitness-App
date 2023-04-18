@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useEffect } from 'react';
 
 const Workout = ({workout, updateActiveWorkouts}) => {
-
     const [isActive, setIsActive] = useState(false);
 
     const buttonPress = () => {
@@ -19,9 +17,13 @@ const Workout = ({workout, updateActiveWorkouts}) => {
     }
     const styles = StyleSheet.create({
         overlayContainer: {
-            backgroundColor: "#000000",
+            backgroundColor: isActive ? "black": "#18181C",
             borderRadius: 20,
+            borderRadius: 20,
+            borderColor: 'white',
+            borderWidth: 2,
             margin: 16,
+            padding: 10,
             justifyContent: "center"
         },
         workoutContainer: {
@@ -38,20 +40,24 @@ const Workout = ({workout, updateActiveWorkouts}) => {
             marginRight: 10
         },
         workoutName: {
-            fontSize: 18,
-            color: "#FFB800"
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: 18
         },
         workoutValues: {
             fontSize: 18,
             color: "white"
         },
         addButton: {
-            backgroundColor: "#FFB800",
             width: 100,
             alignItems: "center",
-            borderRadius: 20
+            borderRadius: 20,
+            borderColor: 'white',
+            borderWidth: 2,
+            borderRadius: 15,
         },
         buttonText: {
+            color: 'white',
             fontSize: 20
         },
         checkmark: {
@@ -72,14 +78,8 @@ const Workout = ({workout, updateActiveWorkouts}) => {
                 name = "check-circle"
                 style = {styles.checkmark}
             />
-            <LinearGradient 
-                style = {styles.workoutContainer}
-                colors={['#545F7E', '#334160']}
-                start={{x: 0, y: 1}}
-                end={{x: 1, y: 0}}
-            >
                 <View>
-                    <Text style = {styles.workoutName}>Name: {workout.Name}</Text>
+                    <Text style = {styles.workoutName}>{workout.Name}</Text>
                     <Text style = {styles.workoutValues}>Reps:{workout.Reps}</Text>
                     <Text style = {styles.workoutValues}>Sets: {workout.Sets}</Text>
                     <Text style = {styles.workoutValues}>Weight: {workout.Weight}</Text>
@@ -89,10 +89,9 @@ const Workout = ({workout, updateActiveWorkouts}) => {
                         style = {styles.addButton}
                         onPress = {buttonPress}
                     >
-                        <Text style = {styles.buttonText}>+ ADD</Text>
+                        <Text style = {styles.buttonText}>{isActive ? "- Remove" : "+ Add"}</Text>
                     </TouchableOpacity>
                 </View>
-            </LinearGradient>
         </View>
         
     )

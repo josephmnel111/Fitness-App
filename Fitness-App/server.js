@@ -51,11 +51,33 @@ app.get("/workout-input", function(req, resp) {
         resp.send(data).status(200)
       });
 })
-app.get("/schedule-input", function(req, resp) {
+
+app.get("/workout-input", function(req, resp) {
     console.log("Get Sent!")
-    connection.query("SELECT * FROM schedule INNER JOIN workout on schedule.Workout_ID = workout.workout_ID", function (err, data, fields) {
+    connection.query("SELECT * FROM workout", function (err, data, fields) {
         if (err) throw err;
         resp.send(data).status(200)
+      });
+})
+
+app.get("/schedule-input", function(req, resp) {
+    console.log("Get Sent!")
+    let month = req.query.month
+    let year = req.query.year
+    connection.query("SELECT * FROM schedule INNER JOIN workout on schedule.Workout_ID = workout.workout_ID", function (err, data, fields) {
+        if (err) throw err;
+        let returnData = []
+        for (let i = 0; i < data.length; ++i) {
+            let value = data[i].Date.split('/')
+            console.log(value)
+            console.log(month)
+            console.log(year)
+            if ((value[0] == month) && (value[2] == year)) {
+                returnData.push(data[i])
+            }
+        }
+        console.log(returnData)
+        resp.send(returnData).status(200)
       });
 })
 

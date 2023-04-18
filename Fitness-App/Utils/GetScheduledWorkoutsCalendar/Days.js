@@ -47,21 +47,13 @@ const Days = (props) => {
     return (
         <View>
             <Modal visible = {modalVisibility}>
-                <View style = {{flex: 1, backgroundColor: "#2D3856"}}>
-                <FontAwesome5 
-                    name="times-circle"
-                    style = {styles.closingMark}
-                    onPress = {closeModal}
-                />
+                <View style = {{backgroundColor: "#1D1E24"}}>
+                    <Text>Workouts for Date</Text>
+                </View>
+                <View style = {{flex: 1, backgroundColor: "#1D1E24"}}>
                     {
                         modalWorkouts.map((workout) => (
                             <View key = {workout.Name} style = {styles.overlayContainer}>
-                                <LinearGradient 
-                                    style = {styles.workoutContainer}
-                                    colors={['#545F7E', '#334160']}
-                                    start={{x: 0, y: 1}}
-                                    end={{x: 1, y: 0}}
-                                >
                                     <View>
                                         <Text style = {styles.workoutName}>Name: {workout.Name}</Text>
                                         <Text style = {styles.workoutValues}>Reps:{workout.Reps}</Text>
@@ -75,18 +67,23 @@ const Days = (props) => {
                                             <Text style = {styles.buttonText}>Edit Workout</Text>
                                         </TouchableOpacity>
                                     </View>
-                                </LinearGradient>
                             </View>
                         ))
                     }
+                    <TouchableOpacity
+                        style = {styles.cancelButton} 
+                        onPress = {closeModal}
+                    >
+                        <Text style = {styles.cancelButtonText}>Cancel</Text>
+                    </TouchableOpacity>
                 </View>
             </Modal>
-            <View style={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row' }}>
+            <View style={{ flex: 1, alignSelf: 'center', flexDirection: 'row'}}>
             {
                 days.map((day) => (
                     <TouchableOpacity key = {day.id} onPress = {() =>handleClick(day)} style={{ flex: 1, alignSelf: 'stretch' }}>                   
-                        <View style={{ flex: 1, alignSelf: 'stretch', backgroundColor: day.isActive? "#FFB800":"#2D3856"}}>
-                            <Text style = {{textAlign: "center", color: day.isActive? "black": "white"}}>{day.value}</Text>
+                        <View style={{ flex: 1, alignSelf: 'center', backgroundColor: day.isActive? "#1D65E1":"#18181C", borderRadius: 100, height: 30, width: 30, justifyContent: 'center'}}>
+                            <Text style = {{textAlign: "center", color: "white"}}>{day.value}</Text>
                         </View>
                     </TouchableOpacity>
                 ))
@@ -116,9 +113,12 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     overlayContainer: {
-        backgroundColor: "#000000",
         borderRadius: 20,
+        borderRadius: 20,
+        borderColor: 'white',
+        borderWidth: 2,
         margin: 16,
+        padding: 10,
         justifyContent: "center"
     },
     workoutContainer: {
@@ -151,7 +151,28 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         marginLeft: "auto",
         marginRight: 10
-    }
+    },
+    cancelButton: {
+        alignItems: "center",
+        borderColor: 'white',
+        borderWidth: 2,
+        padding: 10,
+        margin: 10,
+        borderRadius: 12
+      },
+      cancelButtonText: {
+        color: "white",
+        fontSize: 20
+      },
+      workoutName: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 18
+    },
+    workoutValues: {
+        fontSize: 18,
+        color: "white"
+    },
 })
 
 export default Days;

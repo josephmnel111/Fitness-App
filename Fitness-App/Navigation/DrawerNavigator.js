@@ -32,11 +32,12 @@ const DrawerNavigator = () => {
                 component = {ProfileScreen}
                 options = {{
                     drawerInactiveTintColor: "white",
+                    drawerActiveTintColor: "#1D65E1",
                     drawerIcon: ({focused, size}) => (
                         <FontAwesome5
                             name = "user-circle"
                             size = {24}
-                            color={focused ? "#FFB800" : "white"}
+                            color={focused ? "#1D65E1" : "white"}
                         />
                     ),
                 }}
@@ -50,7 +51,7 @@ const DrawerNavigator = () => {
                         <FontAwesome5
                             name = "dumbbell"
                             size = {24}
-                            color={focused ? "#FFB800" : "white"}
+                            color={focused ? "#1D65E1" : "white"}
                         />
                     ),
                 }}
@@ -64,7 +65,7 @@ const DrawerNavigator = () => {
                         <FontAwesome5
                             name = "running"
                             size = {24}
-                            color={focused ? "#FFB800" : "white"}
+                            color={focused ? "#1D65E1" : "white"}
                         />
                     ),
                 }}
@@ -78,7 +79,7 @@ const DrawerNavigator = () => {
                         <FontAwesome5
                             name = "cog"
                             size = {24}
-                            color={focused ? "#FFB800" : "white"}
+                            color={focused ? "#1D65E1" : "white"}
                         />
                     ),
                 }}

@@ -4,8 +4,6 @@ import {useState} from 'react'
 
 const GraphSection = (props) => {
 
-  console.log(props)
-
   const [finalDates, setFinalDates] = useState([]);
   const [finalData, setFinalData] = useState([]);
 

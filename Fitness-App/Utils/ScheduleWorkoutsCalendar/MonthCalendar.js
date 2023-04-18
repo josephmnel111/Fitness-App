@@ -1,14 +1,18 @@
-import {View, Text} from "react-native"
+import {View, StyleSheet, Text, TouchableOpacity} from "react-native"
 import {useState, useEffect, useContext} from "react"
 import moment from "moment"
 import Days from "./Days"
 
-
-
+const day = new Date()
+const monthNames = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"
+]
+let month = day.getMonth()
+let year = day.getFullYear()
 
 const MonthCalendar = ({updateActiveDates}) => {
     const [dayNames, setDayNames] = useState([])
-    const [monthDayNumbers, setMonthDayNumbers] = useState([])
+    const [mapMonthDayNumbers, setMapMonthDayNumbers] = useState([])
    // const user = useContext(UserContext)
 
 
@@ -37,7 +41,16 @@ const MonthCalendar = ({updateActiveDates}) => {
         if (weekNumbers != []) {
             calendarVals.push(weekNumbers)
         }
-        setMonthDayNumbers(calendarVals)
+
+        let lastWeekFillerVals = 7 - calendarVals[calendarVals.length - 1].length
+        for (let i = 0; i < lastWeekFillerVals; ++i) {
+            calendarVals[calendarVals.length - 1].push('')
+        }
+        let newCalendar = []
+        for (let i = 0; i < calendarVals.length; ++i) {
+            newCalendar.push({value: calendarVals[i], key: i})
+        }
+        setMapMonthDayNumbers(newCalendar)
     }, [])
 
     let weekdayshort = moment.weekdaysShort();
@@ -59,7 +72,6 @@ const MonthCalendar = ({updateActiveDates}) => {
     const getBlankDays = () => {
         let blanks = []
         for (let i = 0; i < firstDayOfMonth(); i++) {
-            console.log(i)
             blanks.push(
                 <td>{""}</td>
             )
@@ -79,10 +91,21 @@ const MonthCalendar = ({updateActiveDates}) => {
     }
 
     return (
-        <View>
+        <View style = {styles.calendarContainer}>
             {
                 <View>
-                    <View style={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row' }}>
+                    <View style = {styles.calendarHeader}>
+                        <TouchableOpacity>
+                            <Text style = {styles.calendarHeaderText}>{'<   '}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style ={styles.calendarHeaderText}>{monthNames[day.getMonth()]}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style = {styles.calendarHeaderText}>{'   >'}</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.daysOfWeekContainer}>
                         {
                             dayNames.map((dayName) => (
                                 <View key = {dayName} style={{ flex: 1, alignSelf: 'stretch' }}><Text style = {{textAlign: "center", color: "white"}}>{dayName}</Text></View>
@@ -90,8 +113,8 @@ const MonthCalendar = ({updateActiveDates}) => {
                         }
                     </View>
                     {
-                        monthDayNumbers.map((week) => (// This will render a row for each data element.
-                            <Days key = {week} value = {week} updateActiveDates = {updateActiveDates}></Days>
+                        mapMonthDayNumbers.map((week) => (// This will render a row for each data element.
+                            <Days key = {week.key} value = {week.value} updateActiveDates = {updateActiveDates}></Days>
                         ))
                     }
                 </View>
@@ -99,11 +122,31 @@ const MonthCalendar = ({updateActiveDates}) => {
         
         </View>
     )
-
-
-
-
 }
+
+const styles = StyleSheet.create({
+    calendarContainer: {
+        backgroundColor: '#18181C',
+        borderRadius: 20,
+        margin: 10
+    },
+    daysOfWeekContainer: {
+        flex: 1, 
+        alignSelf: 'stretch', 
+        flexDirection: 'row' 
+    },
+    calendarHeaderText: {
+       alignSelf: 'center',
+       color: 'white',
+       fontSize: 20
+    },
+    calendarHeader: {
+       flexDirection: 'row',
+       justifyContent: 'center',
+       flex: 1,
+       margin: 10
+    }
+})
 
 
 export default MonthCalendar;
