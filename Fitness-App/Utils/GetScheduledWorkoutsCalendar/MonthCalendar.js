@@ -10,11 +10,13 @@ const day = new Date()
 const monthNames = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"
 ]
+let dataStore = []
 let month = day.getMonth()
 month = month + 1
-console.log(month)
 let year = day.getFullYear()
-let URLValue = "?month=" + month + "&year=" + year
+let currentCalendarMonth = monthNames[day.getMonth()]
+let currentCalendarYear = day.getFullYear()
+
 
 const getSchedule = async ()  => {
 
@@ -25,17 +27,89 @@ const getSchedule = async ()  => {
       }
     }
     //This can change, need to figure this out eventually
-    const res = await fetch(NetworkIP + "/schedule-input" + URLValue, requestOptions)
+    const res = await fetch(NetworkIP + "/schedule-input", requestOptions)
     return res.json();
   }
 
 
 const MonthCalendar = (props) => {
     const {data, status} = useQuery(["schedules"], getSchedule);
+    const [calendarMonth, setCalendarMonth] = useState(monthNames[day.getMonth()])
+    const [calendarYear, setCalendarYear] = useState(day.getFullYear())
     const [dayNames, setDayNames] = useState([])
     const [monthDayNumbers, setMonthDayNumbers] = useState([])
-    const [dates, setDates] = useState([])
 
+
+
+    useEffect(() => {
+        if ((props.dates != undefined) && (props.workouts != undefined)) {
+            for (let i = 0; i < props.dates.length; ++i) {
+                for (let j = 0; j < props.workouts.length; ++j) {
+                    dataStore.push({Date: props.dates[i], Name: props.workouts[j].Name, Reps: props.workouts[j].Reps, Schedule_ID: -1, Sets: props.workouts[j].Sets, Weight: props.workouts[j].Weight, Workout_ID: props.workouts[j].Workout_ID})
+                }
+            }
+
+        }
+        createCalendar()
+    }, [props.dates])
+
+    /*const updateCheck = () => {
+        console.log(props.dates)
+    }
+    updateCheck()*/
+
+    const decreaseCalendarMonthYear = () => {
+        if (currentCalendarMonth == "January") {
+            currentCalendarYear = currentCalendarYear - 1
+            setCalendarYear(currentCalendarYear)
+        }
+        let foundVal = false
+        for (let i = 0; i < monthNames.length; ++i) {
+            if ((currentCalendarMonth == monthNames[i]) && (foundVal == false)) {
+                if (i == 0) { //If month is first month, set new month to December
+                    currentCalendarMonth = "December"
+                    setCalendarMonth(currentCalendarMonth)
+                } else {
+                    currentCalendarMonth = monthNames[i - 1]
+                    setCalendarMonth(currentCalendarMonth)
+                }
+                foundVal = true
+            }
+        }
+        createCalendar()
+    }
+
+    const increaseCalendarMonthYear = () => {
+        if (currentCalendarMonth == "December") {
+            currentCalendarYear = currentCalendarYear + 1
+            setCalendarYear(currentCalendarYear)
+        }
+        let foundVal = false
+        for (let i = 0; i < monthNames.length; ++i) {
+            if ((currentCalendarMonth == monthNames[i]) && (foundVal == false)) {
+                if (i == 11) { //If month is last month, set new month to January
+                    currentCalendarMonth = "January"
+                    setCalendarMonth(currentCalendarMonth)
+                } else {
+                    currentCalendarMonth = monthNames[i + 1]
+                    setCalendarMonth(currentCalendarMonth)
+                }
+                foundVal = true
+            }
+        }
+        createCalendar()
+    }
+
+    const getMonthNum = () => {
+        let monthNum = -1
+        for (let i = 0; i < monthNames.length; ++i) {
+            if (monthNames[i] == currentCalendarMonth) {
+                monthNum = i
+            }
+        }
+        return monthNum
+
+    }
 
     const createCalendar = () => {
 
@@ -70,37 +144,58 @@ const MonthCalendar = (props) => {
             calendarVals[calendarVals.length - 1].push('')
         }
         let dateWorkoutValues = []
-        if (data != undefined) {
-        data.sort(function(a,b) {
-            return new Date(a.Date) - new Date(b.Date)
+        let usefulData = []
+        if (dataStore != undefined) {
+            for (let i = 0; i < dataStore.length; ++i) {
+                let dataDateArray = dataStore[i].Date.split('/')
+                if ((dataDateArray[0] == (getMonthNum() + 1)) && (dataDateArray[2] == currentCalendarYear)) {
+                    usefulData.push(dataStore[i])
+                }
+            }
+        }
+        if (usefulData != undefined) {
+            usefulData.sort(function(a,b) {
+                return new Date(a.Date) - new Date(b.Date)
         })
         let dataCounter = 0
         calendarVals.forEach((week) => {
             let weekArray = []
             week.forEach((day) => {
                 let dataArray = []
-                if (data[dataCounter] != undefined) { //If there is a recorded value for that date
-                    let dateValue = data[dataCounter].Date
-                    let dayValue = dateValue.substring(dateValue.indexOf("/") + 1, dateValue.lastIndexOf("/"))
-                    if (dayValue == day) {
-                        while ((dayValue == day) && (data[dataCounter] != undefined)) {
-                            dataArray.push(data[dataCounter])
-                            ++dataCounter
-                            if (data[dataCounter] != undefined) {
-                                let dateValue = data[dataCounter].Date
-                                dayValue = dateValue.substring(dateValue.indexOf("/") + 1, dateValue.lastIndexOf("/"))
-                            }
+                if (usefulData != undefined) {
+                    if (usefulData[dataCounter] != undefined) { //If there is a recorded value for that date
+                        let dateValue = usefulData[dataCounter].Date
+                        let dayValueArray = dateValue.split('/')
+                        if (dayValueArray[1].charAt(0) == '0'){
+                            dayValueArray[1] = dayValueArray[1].charAt(1)
                         }
-                        weekArray.push({id: idCounter, dayNumber: day, isActive: true, data: dataArray})
-                        ++idCounter
-                    } else {
-                        weekArray.push({id: idCounter, dayNumber: day, isActive: false, data: {Schedule_ID: -1, Workout_ID: -1, Date: ''}})
+                        if (dayValueArray[1] == day) {
+                            while ((dayValueArray[1] == day) && (usefulData[dataCounter] != undefined)) {
+                                dataArray.push(usefulData[dataCounter])
+                                ++dataCounter
+                                if (usefulData[dataCounter] != undefined) {
+                                    let dateValue = usefulData[dataCounter].Date
+                                    dayValueArray = dateValue.split('/')
+                                    if (dayValueArray[1].charAt(0) == '0'){
+                                        dayValueArray[1] = dayValueArray[1].charAt(1)
+                                    }
+                                }
+                            }
+                            weekArray.push({id: idCounter, dayNumber: day, isActive: true, data: dataArray})
+                            ++idCounter
+                        } else {
+                            //weekArray.push({id: idCounter, dayNumber: day, isActive: false, data: {Schedule_ID: -1, Workout_ID: -1, Date: ''}})
+                            weekArray.push({id: idCounter, dayNumber: day, isActive: false, data: []})
+                            ++idCounter
+                        }
+                    } else { //When there is no more data left to add onto dates
+                        //weekArray.push({id: idCounter, dayNumber: day, isActive: false, data: {Schedule_ID: -1, Workout_ID: -1, Date: ''}})
+                        weekArray.push({id: idCounter, dayNumber: day, isActive: false, data: []})
                         ++idCounter
                     }
-                } else {
-                    weekArray.push({id: idCounter, dayNumber: day, isActive: false, data: {Schedule_ID: -1, Workout_ID: -1, Date: ''}})
-                    ++idCounter
+
                 }
+                
             })
             dateWorkoutValues.push({weekId: weekIdCounter, week: weekArray})
             ++weekIdCounter
@@ -110,30 +205,29 @@ const MonthCalendar = (props) => {
     }
 
     useEffect(() => {
+        dataStore = data
         createCalendar()
     }, [data])
 
     let weekdayshort = moment.weekdaysShort();
 
     const getDaysInCurrentMonth = () => {
-        const date = new Date()
-        return new Date(
-            date.getFullYear(),
-            date.getMonth() + 1,
-            0
-        ).getDate()
+        let daysInMonth = new Date(currentCalendarYear, (getMonthNum() + 1), 0).getDate()
+        return daysInMonth
     }
 
     const firstDayOfMonth = () => {
-        let dateObject = moment()
-        let firstDay = moment(dateObject)
-        .startOf("month")
-        .format("d");
+        let firstDay = -1
+        let monthNum = getMonthNum()
+        let value = new Date(currentCalendarYear, monthNum, 1)
+        let stringValue = String(value)
+        let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        for (let i = 0; i< daysOfWeek.length; ++i) {
+            if (daysOfWeek[i] == stringValue.substring(0, 3)) {
+                firstDay = i
+            }
+        }
         return firstDay
-    }
-    
-    const handlePress = () => {
-        console.log("press")
     }
     /*
 
@@ -168,14 +262,14 @@ const MonthCalendar = (props) => {
                 {
                 <View>
                     <View style = {styles.calendarHeader}>
-                        <TouchableOpacity>
-                            <Text style = {styles.calendarHeaderText}>{'<   '}</Text>
+                        <TouchableOpacity onPress = {() =>decreaseCalendarMonthYear()}>
+                            <Text style = {styles.calendarHeaderText}>{'   <   '}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <Text style ={styles.calendarHeaderText}>{monthNames[day.getMonth()]}</Text>
+                            <Text style ={styles.calendarHeaderText}>{calendarMonth + " " + calendarYear}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style = {styles.calendarHeaderText}>{'   >'}</Text>
+                        <TouchableOpacity onPress = {() =>increaseCalendarMonthYear()}>
+                            <Text style = {styles.calendarHeaderText}>{'   >   '}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.daysOfWeekContainer}>

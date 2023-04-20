@@ -1,15 +1,13 @@
 import {View, Text, TouchableOpacity} from "react-native"
 import {useState, useEffect} from "react"
 
-const Days = ({value, updateActiveDates}) => {
+let activeDates = []
+
+const Days = ({value, updateActiveDates, month, year}) => {
 
     const [days, setDays] = useState([])
 
     const getDate = (day) => {
-        const d = new Date()
-        let month = d.getMonth()
-        let year = d.getFullYear()
-        month = month + 1
         let fullDate = month + "/" + day.value + "/" + year
         return fullDate
     }
@@ -18,12 +16,18 @@ const Days = ({value, updateActiveDates}) => {
         let dayArray = []
         let counter = 0
         value.forEach((val) => {
-            const dayObject = {id: counter, value: val, isActive: false}
-            dayArray.push(dayObject)
+            let currentValue = month + '/' + val + '/' + year 
+            if (activeDates.indexOf(currentValue) >= 0) {//If the day has been activated (clicked) then it should be colored
+                const dayObject = {id: counter, value: val, isActive: true}
+                dayArray.push(dayObject)
+            }  else {
+                const dayObject = {id: counter, value: val, isActive: false}
+                dayArray.push(dayObject)
+            }
             ++counter
         })
         setDays(dayArray)
-    }, [])
+    }, [value])
 
 
 
@@ -32,13 +36,17 @@ const Days = ({value, updateActiveDates}) => {
         if (day.value != "") {
             if (day.isActive) {
                 day.isActive = false
+                const index = activeDates.indexOf(dateValue);
+                activeDates.splice(index, 1)
                 updateActiveDates(dateValue, false)
             }
             else {
                 day.isActive = true
+                activeDates.push(dateValue)
                 updateActiveDates(dateValue, true)
             }
         }
+        //This code changes the day array to include the previous values, the now highlighted value, then the values after
         let beginArray = days.slice(0, day.id)
         beginArray.push(day)
         if (day.id == days.length - 1) { //If the day is the last in the array

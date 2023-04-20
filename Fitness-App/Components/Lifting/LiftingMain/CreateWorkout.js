@@ -1,16 +1,37 @@
 import {useEffect, useState} from "react";
 import { View, Text, TouchableOpacity,  StyleSheet, ScrollView } from "react-native";
 import MonthCalendar from "../../../Utils/GetScheduledWorkoutsCalendar/MonthCalendar.js";
+import { FontAwesome5 } from '@expo/vector-icons';
 
 
 
 
-const CreateWorkout = ({navigation}) => {
+const CreateWorkout = ({navigation, route}) => {
+
+  const [successWorkoutInput, setSuccessWorkoutInput] = useState(false)
+  const [successScheduleWorkout, setSuccessScheduleWorkout] = useState(false)
+
+
+  //Updates the calendar on this screen if a new workout/date pair is added on schedule screen.
+  useEffect(() => {
+    if (route.params?.actionType == 'create') {
+      console.log('hi')
+      setSuccessWorkoutInput(true)
+      setTimeout(() => {
+        setSuccessWorkoutInput(false)
+    }, 2000);
+    } else if (route.params?.actionType == 'schedule') {
+      setSuccessScheduleWorkout(true)
+      setTimeout(() => {
+        setSuccessScheduleWorkout(false)
+    }, 2000);
+    }
+  }, [route.params?.actionType]);
 
   return (
     <ScrollView style = {styles.container}>
       <Text style = {styles.textInput}>Workout Schedule</Text>
-      <MonthCalendar/>
+      <MonthCalendar dates = {route.params?.postDates} workouts = {route.params?.postWorkoutData}/>
       <TouchableOpacity
         style = {styles.button} 
         onPress = {() => navigation.navigate('Workout Input')}
@@ -23,6 +44,24 @@ const CreateWorkout = ({navigation}) => {
       >
         <Text style = {styles.buttonText}>Schedule Workout</Text>
       </TouchableOpacity>
+        { successWorkoutInput &&
+        <View style = {styles.successContainer}>
+          <FontAwesome5
+          name = "check-circle"
+          style = {styles.successCheckmark}
+          />
+          <Text style = {styles.successText}>  Workout has been created!</Text>
+        </View>
+        }
+        { successScheduleWorkout &&
+        <View style = {styles.successContainer}>
+          <FontAwesome5
+          name = "check-circle"
+          style = {styles.successCheckmark}
+          />
+          <Text style = {styles.successText}>  Workout has been scheduled!</Text>
+        </View>
+        }
     </ScrollView>
   );
 }
@@ -53,6 +92,20 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "white",
     float: "right"
+  },
+  successContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  successCheckmark: {
+    color: "#32CD32",
+    fontSize: 16,
+    zIndex: 1
+  },
+  successText: {
+    color: "#32CD32",
+    fontSize: 16
   }
 });
 export default CreateWorkout;

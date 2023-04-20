@@ -19,27 +19,49 @@ const getWorkouts = async ()  => {
 }
 
     //{ data.res.map(workout => <Text>{workout.Name}</Text>)}
-const ScheduleWorkout = ({navigation}) => {
+const ScheduleWorkout = ({navigation, route}) => {
   
     const {data, status} = useQuery([], getWorkouts);
     const [dates, setDates] = useState([])
-    const [showSuccess, setShowSuccess] = useState(false)
     const [workoutData, setWorkoutData] = useState([])
+
+    let postValues = false
 
     const updateActiveDates = (date, isAdd) => {
       let tempDateArray = []
+      let dateArray = date.split('/')
+      //Formats days that are between 1 and 9 as 01...09 so they can be ordered properly by sql.
+      if (dateArray[1].length == 1) {
+        dateArray[1] = '0' + dateArray[1] //for day
+      }
+      let formattedDate = dateArray.join('/')
+      console.log(formattedDate)
       if (dates != undefined) {
         tempDateArray = dates
       }
       if (isAdd) {
-        tempDateArray.push(date)
+        tempDateArray.push(formattedDate)
         setDates(tempDateArray)
       } else {
-        let removalIndex = tempDateArray.indexOf(date)
+        let removalIndex = tempDateArray.indexOf(formattedDate)
         tempDateArray.splice(removalIndex, 1)
         setDates(tempDateArray)
       }
 
+    }
+
+    const cancelSwitchScreens = () => {
+      navigation.navigate('Create Workout')
+    }
+
+    const switchScreens = () => {
+      navigation.navigate({
+        name: 'Create Workout',
+        params: { 
+          actionType: 'schedule'
+         },
+        merge: true,
+      });
     }
 
     const postSchedule = async () => {
@@ -51,12 +73,11 @@ const ScheduleWorkout = ({navigation}) => {
           },
           body: JSON.stringify({dateValues: dates, workoutValues: workoutData})
         }
-        setShowSuccess(true)
+        switchScreens()
         await fetch(NetworkIP + "/schedule-input", requestOptions)
         .then(response => {
           response.json()
           .then(data => {
-            navigation.navigate('Create Workout')
             Alert.alert("Post Created")
           })
         })
@@ -104,16 +125,20 @@ const ScheduleWorkout = ({navigation}) => {
           <Text style = {styles.textInput}>Choose Exercises</Text>
           <View style = {styles.workoutContainer}>
             {data.map(workout => <Workout key = {workout.Workout_ID} workout = {workout} updateActiveWorkouts = {updateActiveWorkouts}/>)}
-            { showSuccess &&
-              <Text style = {{color: "white", alignSelf: "center"}}>Workout has been scheduled!</Text>
-            }
+          </View>
+          <View>
             <TouchableOpacity
-              style = {styles.button} 
-              onPress = {postSchedule}
+                style = {styles.scheduleButton} 
+                onPress = {postSchedule}
             >
-            <Text style = {styles.buttonText}>Schedule</Text>
+                <Text style = {styles.buttonText}>Schedule</Text>
             </TouchableOpacity>
-
+            <TouchableOpacity
+              style = {styles.cancelButton} 
+              onPress = {cancelSwitchScreens}
+            >
+              <Text style = {styles.buttonText}>Cancel</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       )
@@ -153,13 +178,21 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 20
   },
-  button: {
+  scheduleButton: {
+    alignItems: "center",
     borderColor: 'white',
     borderWidth: 2,
-    alignItems: "center",
     padding: 10,
     margin: 10,
-    marginBottom: 20,
+    borderRadius: 12
+  },
+  cancelButton: {
+    alignItems: "center",
+    borderColor: 'white',
+    borderWidth: 2,
+    padding: 10,
+    margin: 10,
+    marginBottom: 30,
     borderRadius: 12
   },
   buttonText: {

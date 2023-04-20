@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { View, TouchableOpacity, Text, TextInput,  StyleSheet, Alert} from "react-native";
+import { View, TouchableOpacity, Text, TextInput,  StyleSheet, Alert, ScrollView} from "react-native";
 import {NetworkIP} from "../../../Utils/Constants/NetworkSettings";
 
 
@@ -9,12 +9,24 @@ const WorkoutInput = ({navigation}) => {
   const [reps, setReps] = useState('');
   const [sets, setSets] = useState('');
   const [weight, setWeight] = useState('');
-  const [showSuccess, setShowSuccess] = useState(false)
 
+  const cancelSwitchScreens = () => {
+    navigation.navigate('Create Workout')
+  }
+
+  const switchScreens = () => {
+    navigation.navigate({
+      name: 'Create Workout',
+      params: { 
+        actionType: 'create'
+      },
+      merge: true,
+    });
+  }
 
   const postWorkout = async () => {
     if ((name != '') && (reps != '') && (sets != '') && (weight != '')) {
-      setShowSuccess(true)
+      switchScreens()
       try {
         const requestOptions = {
           method: 'POST',
@@ -41,20 +53,21 @@ const WorkoutInput = ({navigation}) => {
 
 
   return (
+    <ScrollView>
       <View style = {styles.mainContainer}>
-        <Text style = {styles.textInput}>
-          Create New Workout
+      <Text style = {styles.title}>
+        Create New Workout
         </Text>
 
           <View style = {styles.inputContainer}>
-              <Text style = {styles.inputValues}>Name:</Text>
+              <Text style = {styles.inputTitles}>Name:</Text>
               <TextInput 
                 style = {styles.input}
                 onChangeText={(val) => setName(val)}
               />
           </View>
           <View style = {styles.inputContainer}>
-              <Text style = {styles.inputValues}>Reps:</Text>
+              <Text style = {styles.inputTitles}>Reps:</Text>
               <TextInput 
                 style = {styles.input} 
                 keyboardType = "numeric"
@@ -62,7 +75,7 @@ const WorkoutInput = ({navigation}) => {
               />
           </View>
           <View style = {styles.inputContainer}>
-              <Text style = {styles.inputValues}>Sets:</Text>
+              <Text style = {styles.inputTitles}>Sets:</Text>
               <TextInput 
                 style = {styles.input} 
                 keyboardType = "numeric"
@@ -70,16 +83,13 @@ const WorkoutInput = ({navigation}) => {
               />
           </View>
           <View style = {styles.inputContainer}>
-              <Text style = {styles.inputValues}>Weight:</Text>
+              <Text style = {styles.inputTitles}>Weight:</Text>
               <TextInput 
                 style = {styles.input} 
                 keyboardType = "numeric"
                 onChangeText={(val) => setWeight(val)}
               />
           </View> 
-            { showSuccess &&
-              <Text style = {{color: "white", alignSelf: "center"}}>Workout has been entered!</Text>
-            }
           <TouchableOpacity
             style = {styles.button} 
             onPress = {postWorkout}
@@ -88,10 +98,13 @@ const WorkoutInput = ({navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity
             style = {styles.button} 
+            onPress = {cancelSwitchScreens}
           >
-            <Text style = {styles.buttonText}>Schedule Workout</Text>
+            <Text style = {styles.buttonText}>Cancel</Text>
           </TouchableOpacity>
       </View>
+    </ScrollView>
+      
   );
 }
 const styles = StyleSheet.create({
@@ -101,22 +114,27 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: "#1D1E24",
-    margin: 5,
-    borderRadius: 12
+    margin: 10
   },
   input: {
-    backgroundColor: "white",
-    margin: 6,
+    backgroundColor: "#1D1E24",
+    borderWidth: 2,
+    borderColor: "white",
+    color: "white",
+    fontSize: 16,
+    borderRadius: 12,
+    padding: 10,
+    margin: 10,
     borderRadius: 12
   },
-  inputValues: {
+  inputTitles: {
     color: "white",
     margin: 5,
-    fontSize: 15
+    fontSize: 18
   },
-  textInput: {
+  title: {
     alignSelf: "center",
-    fontSize: 20,
+    fontSize: 24,
     margin: 10,
     color: "white"
   },

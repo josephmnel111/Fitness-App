@@ -2,10 +2,11 @@
 
 /*
   Todo:
-  1. On scheduling, turn workout has been scheduled green and add back button to screen.
-  2. When you create a workout, make sure tag is green when it is added as well.
-  3. Add animations
-  4. Fix schedule button on workout input page.
+  1. Fix styling when clicking on schedule on first screen. 
+  2. Make loading screens for loading values.
+  3. Make profile screen styling better.
+  4. Something broke with loading blue circle when submitting via scheduling button.
+  5. Add animations
 
 */
 

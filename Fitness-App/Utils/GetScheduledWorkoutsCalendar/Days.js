@@ -1,10 +1,8 @@
 import {View, Text, TouchableOpacity, Modal, StyleSheet} from "react-native"
 import {useState, useEffect} from "react"
-import { LinearGradient } from 'expo-linear-gradient';
-import { FontAwesome5 } from '@expo/vector-icons';
 
 const Days = (props) => {
-
+    
     const [days, setDays] = useState([])
     const [modalVisibility, setModalVisibility] = useState(false)
     const [modalWorkouts, setModalWorkouts] = useState([])
@@ -17,7 +15,6 @@ const Days = (props) => {
         if(day.isActive == true) {
             let tempArray = []
             day.data.forEach((value) => {
-                console.log(value)
                 tempArray.push({Name: value.Name, Reps: value.Reps, Sets: value.Sets, Weight: value.Weight})
             })
             setModalWorkouts(tempArray)
@@ -28,21 +25,15 @@ const Days = (props) => {
 
 
     useEffect(() => {
-        let dayArray = []
         let counter = 0
+        let dayArray = []
         props.value.forEach((propValue) => {
             const dayObject = {id: counter, isActive: propValue.isActive, value: propValue.dayNumber, data: propValue.data}
             dayArray.push(dayObject)
             ++counter
         })
         setDays(dayArray)
-        /*value.forEach((val) => {
-            const dayObject = {id: counter, value: val, isActive: false}
-            dayArray.push(dayObject)
-            ++counter
-        })
-        setDays(dayArray)*/
-    }, [])
+    }, [props.value])
 
     return (
         <View>
