@@ -1,9 +1,8 @@
 import {View, Text, TouchableOpacity} from "react-native"
 import {useState, useEffect} from "react"
 
-let activeDates = []
 
-const Days = ({value, updateActiveDates, month, year}) => {
+const Days = ({value, updateActiveDates, month, year, activeDates}) => {
 
     const [days, setDays] = useState([])
 

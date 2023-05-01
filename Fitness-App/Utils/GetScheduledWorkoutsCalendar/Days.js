@@ -3,6 +3,7 @@ import {useState, useEffect} from "react"
 
 const Days = (props) => {
     
+    const [modalTitleDate, setModalTitleDate] = useState('Date')
     const [days, setDays] = useState([])
     const [modalVisibility, setModalVisibility] = useState(false)
     const [modalWorkouts, setModalWorkouts] = useState([])
@@ -13,6 +14,10 @@ const Days = (props) => {
 
     const handleClick = (day) => {
         if(day.isActive == true) {
+            if (day.data.length >= 0) {
+                setModalTitleDate(day.data[0].Date)
+            }
+            console.log(day)
             let tempArray = []
             day.data.forEach((value) => {
                 tempArray.push({Name: value.Name, Reps: value.Reps, Sets: value.Sets, Weight: value.Weight})
@@ -39,10 +44,11 @@ const Days = (props) => {
         <View>
             <Modal visible = {modalVisibility}>
                 <View style = {{backgroundColor: "#1D1E24"}}>
-                    <Text>Workouts for Date</Text>
+                    <Text style = {styles.title}>Workouts for {modalTitleDate}</Text>
                 </View>
                 <View style = {{flex: 1, backgroundColor: "#1D1E24"}}>
-                    {
+                    <View style = {styles.workoutContainer}>
+                        {
                         modalWorkouts.map((workout) => (
                             <View key = {workout.Name} style = {styles.overlayContainer}>
                                     <View>
@@ -51,16 +57,12 @@ const Days = (props) => {
                                         <Text style = {styles.workoutValues}>Sets: {workout.Sets}</Text>
                                         <Text style = {styles.workoutValues}>Weight: {workout.Weight}</Text>
                                     </View>
-                                    <View style = {styles.buttonContainer}>
-                                        <TouchableOpacity
-                                            style = {styles.editButton}
-                                        >
-                                            <Text style = {styles.buttonText}>Edit Workout</Text>
-                                        </TouchableOpacity>
-                                    </View>
                             </View>
                         ))
                     }
+
+                    </View>
+                    
                     <TouchableOpacity
                         style = {styles.cancelButton} 
                         onPress = {closeModal}
@@ -91,6 +93,13 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 18
     },
+    title: {
+        color: 'white',
+        marginTop: 10,
+        fontSize: 20,
+        alignSelf: 'center'
+
+    },
     closingMark: {
         color: "white",
         fontSize: 25,
@@ -113,11 +122,9 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     workoutContainer: {
-        display: "flex",
-        padding: 10,
+        backgroundColor: '#18181C',
         borderRadius: 20,
-        flexDirection: 'row',
-        flexWrap: 'wrap'
+        margin: 10
     },
     touchable: {
         backgroundColor: "#FFB800", //yellow

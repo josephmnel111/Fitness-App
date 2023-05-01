@@ -18,6 +18,7 @@ const Workout = ({workout, updateActiveWorkouts}) => {
     const styles = StyleSheet.create({
         overlayContainer: {
             backgroundColor: isActive ? "black": "#18181C",
+            flexDirection: 'row',
             borderRadius: 20,
             borderRadius: 20,
             borderColor: 'white',

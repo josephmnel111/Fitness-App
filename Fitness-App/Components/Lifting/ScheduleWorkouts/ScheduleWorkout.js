@@ -22,6 +22,7 @@ const getWorkouts = async ()  => {
 const ScheduleWorkout = ({navigation, route}) => {
   
     const {data, status} = useQuery([], getWorkouts);
+    const [activeDates, setActiveDates] = useState([])
     const [dates, setDates] = useState([])
     const [workoutData, setWorkoutData] = useState([])
 
@@ -35,7 +36,6 @@ const ScheduleWorkout = ({navigation, route}) => {
         dateArray[1] = '0' + dateArray[1] //for day
       }
       let formattedDate = dateArray.join('/')
-      console.log(formattedDate)
       if (dates != undefined) {
         tempDateArray = dates
       }
@@ -51,14 +51,18 @@ const ScheduleWorkout = ({navigation, route}) => {
     }
 
     const cancelSwitchScreens = () => {
+      setActiveDates([])
       navigation.navigate('Create Workout')
     }
 
     const switchScreens = () => {
+      setActiveDates([])
       navigation.navigate({
         name: 'Create Workout',
         params: { 
-          actionType: 'schedule'
+          actionType: 'schedule',
+          postDates: dates,
+          postWorkoutData: workoutData
          },
         merge: true,
       });
@@ -120,7 +124,7 @@ const ScheduleWorkout = ({navigation, route}) => {
         <ScrollView style = {styles.container}>
         <Text style = {styles.textInput}>Choose Dates</Text>
           <View style = {styles.scheduleContainer}>
-            <MonthCalendar updateActiveDates = {updateActiveDates}/>
+            <MonthCalendar updateActiveDates = {updateActiveDates} activeDates = {activeDates}/>
           </View>
           <Text style = {styles.textInput}>Choose Exercises</Text>
           <View style = {styles.workoutContainer}>
@@ -150,14 +154,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
-    backgroundColor: "#2D3856",
+    backgroundColor: "#1D1E24",
     color: "white"
   },
   loadingContainer: {
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
-    backgroundColor: "#2D3856",
+    backgroundColor: "#1D1E24",
     color: "white"
   },
   container: {
@@ -179,7 +183,7 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   scheduleButton: {
-    alignItems: "center",
+    alignItems: 'center',
     borderColor: 'white',
     borderWidth: 2,
     padding: 10,
@@ -187,7 +191,7 @@ const styles = StyleSheet.create({
     borderRadius: 12
   },
   cancelButton: {
-    alignItems: "center",
+    alignItems: 'center',
     borderColor: 'white',
     borderWidth: 2,
     padding: 10,

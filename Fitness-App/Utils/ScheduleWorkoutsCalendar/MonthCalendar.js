@@ -13,7 +13,7 @@ let year = day.getFullYear()
 let currentCalendarMonth = monthNames[day.getMonth()]
 let currentCalendarYear = day.getFullYear()
 
-const MonthCalendar = ({updateActiveDates}) => {
+const MonthCalendar = ({updateActiveDates, activeDates}) => {
     const [dayNames, setDayNames] = useState([])
     const [mapMonthDayNumbers, setMapMonthDayNumbers] = useState([])
     const [calendarMonth, setCalendarMonth] = useState(monthNames[day.getMonth()])
@@ -162,7 +162,7 @@ const increaseCalendarMonthYear = () => {
                     </View>
                     {
                         mapMonthDayNumbers.map((week) => (// This will render a row for each data element.
-                            <Days key = {week.key} value = {week.value} updateActiveDates = {updateActiveDates} month = {(getMonthNum() + 1)} year = {currentCalendarYear}></Days>
+                            <Days key = {week.key} value = {week.value} updateActiveDates = {updateActiveDates} month = {(getMonthNum() + 1)} year = {currentCalendarYear} activeDates = {activeDates}></Days>
                         ))
                     }
                 </View>

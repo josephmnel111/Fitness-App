@@ -146,47 +146,53 @@ const GraphSection = (props) => {
    
 
     return (
-    <View style = {styles.container}>
-        <Text style = {styles.title}>{name}</Text>
-        <LineChart
-          data={{
-            labels: graphDates,
-            datasets: [
-              {
-                data: graphData
-              }
-            ]
-          }}
-          withDots={false}
-          width={350} // from react-native
-          height={200}
-          withHorizontalLines = {false}
-          withVerticalLines = {false}
-          yAxisInterval={1} // optional, defaults to 1
-          fromZero={true}
-          chartConfig={{
-            decimalPlaces:0,
-            backgroundGradientFromOpacity: 0,
-            backgroundGradientToOpacity: 0,
-            backgroundColor: "#18181C",
-            color: (opacity = 1) => `#1D65E1`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16
-            }
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 16
-          }}
-        />
+      <View> 
+        <View>
+            <Text style = {styles.title}>{name}</Text>
+        </View>
+        <View style = {styles.container}>
+            <LineChart
+              data={{
+                labels: graphDates,
+                datasets: [
+                  {
+                    data: graphData
+                  }
+                ]
+              }}
+              withDots={false}
+              width={350} // from react-native
+              height={200}
+              withHorizontalLines = {false}
+              withVerticalLines = {false}
+              yAxisInterval={1} // optional, defaults to 1
+              chartConfig={{
+                decimalPlaces:0,
+                backgroundGradientFromOpacity: 0,
+                backgroundGradientToOpacity: 0,
+                backgroundColor: "#18181C",
+                color: (opacity = 1) => `#1D65E1`,
+                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                  borderRadius: 16
+                }
+              }}
+              bezier
+              style={{
+                marginVertical: 8,
+                borderRadius: 16
+              }}
+            />
+          </View>
+
       </View>
+   
     )
 }
 const styles = StyleSheet.create({
     title: {
         color: 'white',
+        alignSelf: 'center',
         fontSize: 20
 
     },
@@ -194,7 +200,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#18181C',
       alignItems: 'center',
       justifyContent: 'center',
-      margin: 15,
+      margin: 5,
+      marginTop: 15,
       padding: 10,
       borderRadius: 20
     },

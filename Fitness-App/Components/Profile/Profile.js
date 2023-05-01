@@ -133,6 +133,10 @@ const ProfileScreen = () =>{
  text: {
    color: 'white',
    alignSelf: 'center'
+ },
+ textInput: {
+  color: "white",
+  fontSize: 20
  }
 })
  export default ProfileScreen;

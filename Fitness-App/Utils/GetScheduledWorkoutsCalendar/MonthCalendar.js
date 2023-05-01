@@ -39,7 +39,7 @@ const MonthCalendar = (props) => {
     const [dayNames, setDayNames] = useState([])
     const [monthDayNumbers, setMonthDayNumbers] = useState([])
 
-
+    console.log(props)
 
     useEffect(() => {
         if ((props.dates != undefined) && (props.workouts != undefined)) {

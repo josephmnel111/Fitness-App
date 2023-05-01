@@ -33,6 +33,9 @@ const WorkoutContainerSection = (props) => {
 
     return (
         <View style = {styles.container}>
+            <View>
+                <Text style = {styles.title}>Choose Workout History</Text>
+            </View>
             <RadioButtonRN
                 data={containerWorkoutArray}
                 initial={initialValue}
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#1D1E24',
         borderColor: 'white',
-        borderWidth: 2,
+        borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 15,
@@ -75,6 +78,11 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
+    },
+    title: {
+        fontSize: 20,
+        color: 'white',
+        alignSelf: 'center'
     }
 })
 

@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   title: {
     alignSelf: "center",
-    fontSize: 24,
+    fontSize: 20,
     margin: 10,
     color: "white"
   },
@@ -142,8 +142,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: 'white',
     borderWidth: 2,
-    padding: 10,
+    marginLeft: 20,
+    marginRight: 20,
     margin: 10,
+    padding: 10,
     borderRadius: 12
   },
   buttonText: {

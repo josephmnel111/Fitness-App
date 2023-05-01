@@ -2,11 +2,9 @@
 
 /*
   Todo:
-  1. Fix styling when clicking on schedule on first screen. 
-  2. Make loading screens for loading values.
-  3. Make profile screen styling better.
-  4. Something broke with loading blue circle when submitting via scheduling button.
-  5. Add animations
+  1. Change profile and workoutcontainersection so style matches rest of app (especially buttons)
+  2. Make it so when you exit from scheduling section, then go back in, the active dates are refreshed, so none are colored in.c
+  3. Add animations
 
 */
 

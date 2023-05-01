@@ -20,25 +20,31 @@ const StepSection = ( props ) =>{
       percentage = 100
     }
       return (
-      <View style = {styles.container}>
+      <View>
         <View style = {styles.titleContainer}>
           <Text style = {styles.title}>{props.activeWorkout}</Text>
         </View>
-        <View style = {styles.dataContainer}>
-          <Text style = {styles.data}>{data}</Text>
-        </View>
-        <CircularProgress
-          style = {styles.progressBar}
-          radius = {40}
-          value={percentage}
-          progressValueColor="#18181C"
-          activeStrokeColor="#1D65E1"
-          inActiveStrokeOpacity={1}
-          dashedStrokeConfig={{
-            count: 30,
-            width: 4,
-          }}
-        />
+        <View style = {styles.container}>
+          <View style = {styles.dataContainer}>
+            <Text style = {styles.data}>{data}</Text>
+          </View>
+          <CircularProgress
+            style = {styles.progressBar}
+            radius = {40}
+            value={percentage}
+            progressValueColor="#18181C"
+            activeStrokeColor="#1D65E1"
+            inActiveStrokeOpacity={1}
+            dashedStrokeConfig={{
+              count: 30,
+              width: 4,
+            }}
+          >
+            
+          </CircularProgress>
+
+          </View>
+          
       </View>
       
     );
@@ -46,8 +52,9 @@ const StepSection = ( props ) =>{
 const styles = StyleSheet.create({
   title: {
     color: "white",
-    fontSize: 18,
-    margin: 10
+    fontSize: 20,
+    marginTop: 10,
+    alignSelf: 'center'
   },
   
   container: {
@@ -55,8 +62,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 15,
-    padding: 5,
+    margin: 5,
+    marginTop: 15,
+    padding: 10,
     borderRadius: 20
   },
   dataContainer: {
@@ -66,9 +74,8 @@ const styles = StyleSheet.create({
     zIndex: 10
   },
   data: {
-    top: 10,
     color: 'white',
-  }
+  },
 });
 //Blue color: #1D65E1
 
